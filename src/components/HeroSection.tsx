@@ -1,10 +1,31 @@
 import { Link } from "react-router-dom";
 import { ArrowRight, MessageCircle } from "lucide-react";
+import LiquidEther from "./LiquidEther";
 
 const HeroSection = () => {
   return (
-    <section className="min-h-screen flex items-center justify-center px-4 pt-24">
-      <div className="text-center max-w-4xl mx-auto">
+    <section className="min-h-screen flex items-center justify-center px-4 pt-24 relative overflow-hidden">
+      {/* Liquid Ether Background */}
+      <div className="absolute inset-0 z-0">
+        <LiquidEther
+          colors={['#0A0F0D', '#22C55E', '#9EDFC7']}
+          mouseForce={25}
+          cursorSize={150}
+          isViscous={false}
+          viscous={30}
+          iterationsViscous={32}
+          iterationsPoisson={32}
+          resolution={0.6}
+          isBounce={false}
+          autoDemo={true}
+          autoSpeed={0.3}
+          autoIntensity={1.8}
+          takeoverDuration={0.4}
+          autoResumeDelay={4000}
+          autoRampDuration={0.8}
+        />
+      </div>
+      <div className="text-center max-w-4xl mx-auto relative z-10">
         {/* Main Headline */}
         <h1 className="text-5xl md:text-7xl font-bold text-white mb-6 leading-tight">
           Your Health,{" "}
