@@ -6,16 +6,16 @@
 
 @layer base {
   :root {
-    /* Velvet Jade Gradient Colors */
-    --velvet-jade-dark: 10 37% 5%;     /* #0A0F0D - deep dark green */
-    --velvet-jade-light: 160 71% 74%;  /* #9EDFC7 - soft light mint green */
-    --velvet-jade-mid: 160 45% 35%;    /* intermediate green */
+    /* New Gradient Colors */
+    --velvet-jade-dark: 195 65% 22%;   /* #134E5E - dark teal */
+    --velvet-jade-light: 142 35% 57%;  /* #71B280 - mint green */
+    --velvet-jade-mid: 169 40% 35%;    /* intermediate blend */
     
     /* Glass System Colors */
     --glass-white: 0 0% 100%;
     --glass-white-10: 0 0% 100%;       /* 10% opacity for glass backgrounds */
     --glass-white-20: 0 0% 100%;       /* 20% opacity for glass borders */
-    --glass-dark: 160 30% 8%;          /* Dark glass variant */
+    --glass-dark: 195 40% 15%;         /* Dark glass variant based on new theme */
     
     /* Semantic Color System */
     --background: var(--velvet-jade-dark);
@@ -48,8 +48,8 @@
     
     /* Glass Effects */
     --glass-blur: blur(20px);
-    --glass-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
-    --glass-glow: 0 0 40px rgba(158, 223, 199, 0.3);
+    --glass-shadow: 0 8px 32px 0 rgba(19, 78, 94, 0.37);
+    --glass-glow: 0 0 40px rgba(113, 178, 128, 0.3);
     
     /* Animations */
     --transition-glass: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
@@ -101,9 +101,9 @@
     width: 100%;
     height: 100%;
     background: 
-      radial-gradient(circle at 20% 50%, rgba(158, 223, 199, 0.1) 0%, transparent 50%),
-      radial-gradient(circle at 80% 20%, rgba(158, 223, 199, 0.08) 0%, transparent 50%),
-      radial-gradient(circle at 40% 80%, rgba(158, 223, 199, 0.06) 0%, transparent 50%);
+      radial-gradient(circle at 20% 50%, rgba(113, 178, 128, 0.1) 0%, transparent 50%),
+      radial-gradient(circle at 80% 20%, rgba(113, 178, 128, 0.08) 0%, transparent 50%),
+      radial-gradient(circle at 40% 80%, rgba(113, 178, 128, 0.06) 0%, transparent 50%);
     animation: float 20s ease-in-out infinite;
     pointer-events: none;
     z-index: -1;
