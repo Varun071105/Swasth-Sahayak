@@ -35,19 +35,12 @@ const FeatureCards = () => {
       <div className="max-w-6xl mx-auto">
         {/* Section Header */}
         <div className="text-center mb-16">
-          <GlassSurface
-            width="100%"
-            height={140}
-            borderRadius={28}
-            className="mb-8 p-8"
-          >
-            <h2 className="text-4xl md:text-5xl font-bold text-white mb-4">
-              Comprehensive Health Resources
-            </h2>
-            <p className="text-xl text-white/70 max-w-2xl mx-auto">
-              Explore our wide range of health and wellness resources designed to support every aspect of your well-being.
-            </p>
-          </GlassSurface>
+          <h2 className="text-4xl md:text-5xl font-bold text-white mb-4">
+            Comprehensive Health Resources
+          </h2>
+          <p className="text-xl text-white/70 max-w-2xl mx-auto">
+            Explore our wide range of health and wellness resources designed to support every aspect of your well-being.
+          </p>
         </div>
 
         {/* Feature Cards Grid */}
@@ -61,10 +54,7 @@ const FeatureCards = () => {
               sparkCount={10}
               duration={700}
             >
-              <GlassSurface
-                width="100%"
-                height={320}
-                borderRadius={24}
+              <div
                 className="p-6 hover:scale-105 transition-transform duration-300 cursor-pointer group"
                 style={{ animationDelay: `${index * 0.2}s` }}
               >
@@ -83,41 +73,43 @@ const FeatureCards = () => {
                 <p className="text-white/70 text-center leading-relaxed">
                   {feature.description}
                 </p>
-              </GlassSurface>
+              </div>
             </ClickSpark>
           ))}
         </div>
 
         {/* Call to Action */}
         <div className="text-center mt-16">
-          <ClickSpark
-            sparkColor="#71B280"
-            sparkSize={14}
-            sparkRadius={25}
-            sparkCount={12}
-            duration={800}
-          >
-            <GlassSurface
-              width="100%"
-              height={200}
-              borderRadius={24}
-              className="p-8 max-w-2xl mx-auto cursor-pointer hover:scale-105 transition-transform duration-300"
-              backgroundOpacity={0.15}
+          <div className="p-8 max-w-2xl mx-auto">
+            <h3 className="text-2xl font-semibold text-white mb-3">
+              Ready to start your health journey?
+            </h3>
+            <p className="text-white/80 mb-6">
+              Our AI health assistant is here to help you 24/7
+            </p>
+            <ClickSpark
+              sparkColor="#71B280"
+              sparkSize={14}
+              sparkRadius={25}
+              sparkCount={12}
+              duration={800}
             >
-              <h3 className="text-2xl font-semibold text-white mb-3">
-                Ready to start your health journey?
-              </h3>
-              <p className="text-white/80 mb-4">
-                Our AI health assistant is here to help you 24/7
-              </p>
-              <a
-                href="/chatbot"
-                className="inline-flex items-center glass-button-primary"
+              <GlassSurface
+                width="auto"
+                height={60}
+                borderRadius={16}
+                backgroundOpacity={0.1}
+                className="cursor-pointer hover:scale-105 transition-transform duration-300"
               >
-                Chat with Health Bot
-              </a>
-            </GlassSurface>
-          </ClickSpark>
+                <a
+                  href="/chatbot"
+                  className="inline-flex items-center glass-button-primary"
+                >
+                  Chat with Health Bot
+                </a>
+              </GlassSurface>
+            </ClickSpark>
+          </div>
         </div>
       </div>
     </section>
