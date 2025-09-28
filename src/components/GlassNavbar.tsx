@@ -3,6 +3,7 @@ import { Menu, X } from "lucide-react";
 import { Link, useLocation } from "react-router-dom";
 import GlassSurface from "./GlassSurface";
 import ClickSpark from "./ClickSpark";
+import logo from "@/assets/logo.png";
 
 const GlassNavbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -33,11 +34,9 @@ const GlassNavbar = () => {
             sparkCount={6}
             duration={400}
           >
-            <Link to="/" className="flex items-center space-x-2">
-              <div className="w-8 h-8 bg-gradient-to-r from-green-400 to-emerald-500 rounded-lg flex items-center justify-center">
-                <span className="text-white font-bold text-sm">H</span>
-              </div>
-              <span className="text-white font-semibold text-xl">HealthConnect</span>
+            <Link to="/" className="flex items-center space-x-3">
+              <img src={logo} alt="Swasth-Sahaya Logo" className="w-10 h-10" />
+              <span className="text-white font-semibold text-xl">Swasth-Sahaya</span>
             </Link>
           </ClickSpark>
 

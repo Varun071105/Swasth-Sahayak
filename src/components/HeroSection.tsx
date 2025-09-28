@@ -54,21 +54,14 @@ const HeroSection = () => {
             sparkCount={8}
             duration={500}
           >
-            <GlassSurface
-              width="auto"
-              height={60}
-              borderRadius={16}
-              backgroundOpacity={0.1}
+            <Link
+              to="/chatbot"
+              className="bg-gradient-to-r from-primary to-primary-glow text-white font-semibold px-8 py-4 rounded-2xl hover:scale-105 transition-all duration-300 shadow-lg hover:shadow-xl flex items-center space-x-2 group"
             >
-              <Link
-                to="/chatbot"
-                className="glass-button-primary flex items-center space-x-2 group"
-              >
-                <MessageCircle size={20} />
-                <span>Get Started</span>
-                <ArrowRight size={16} className="group-hover:translate-x-1 transition-transform" />
-              </Link>
-            </GlassSurface>
+              <MessageCircle size={20} />
+              <span>Get Started</span>
+              <ArrowRight size={16} className="group-hover:translate-x-1 transition-transform" />
+            </Link>
           </ClickSpark>
           
           <ClickSpark
@@ -78,34 +71,21 @@ const HeroSection = () => {
             sparkCount={8}
             duration={500}
           >
-            <GlassSurface
-              width="auto"
-              height={60}
-              borderRadius={16}
-              backgroundOpacity={0.1}
+            <Link
+              to="/about"
+              className="bg-white/10 backdrop-blur-sm text-white font-semibold px-8 py-4 rounded-2xl border border-white/20 hover:bg-white/20 hover:scale-105 transition-all duration-300 flex items-center space-x-2"
             >
-              <Link
-                to="/about"
-                className="glass-button-secondary flex items-center space-x-2"
-              >
-                <span>Learn More</span>
-              </Link>
-            </GlassSurface>
+              <span>Learn More</span>
+            </Link>
           </ClickSpark>
         </div>
 
         {/* Disclaimer */}
-        <GlassSurface
-          width="100%"
-          height={100}
-          borderRadius={20}
-          className="p-6 max-w-2xl mx-auto"
-          backgroundOpacity={0.1}
-        >
+        <div className="p-6 max-w-2xl mx-auto bg-orange-900/20 backdrop-blur-sm rounded-2xl border border-orange-500/30">
           <p className="text-orange-100 text-sm font-medium">
             ⚠️ <strong>Important:</strong> This chatbot is for informational purposes only and does not replace professional medical advice, diagnosis, or treatment.
           </p>
-        </GlassSurface>
+        </div>
       </div>
     </section>
   );
