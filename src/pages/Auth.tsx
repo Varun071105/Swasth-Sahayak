@@ -1,29 +1,122 @@
-import { useState } from "react";
-import { Link } from "react-router-dom";
+import { useState, useEffect } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { useToast } from "@/components/ui/use-toast";
 import GlassSurface from "@/components/GlassSurface";
 import ClickSpark from "@/components/ClickSpark";
+import { supabase } from "@/integrations/supabase/client";
 import logo from "@/assets/logo.png";
 
 const Auth = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
+  const [loading, setLoading] = useState(false);
+  const navigate = useNavigate();
+  const { toast } = useToast();
+
+  useEffect(() => {
+    // Check if user is already logged in
+    const checkUser = async () => {
+      const { data: { user } } = await supabase.auth.getUser();
+      if (user) {
+        navigate('/');
+      }
+    };
+    checkUser();
+  }, [navigate]);
 
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
-    // TODO: Implement login logic with Supabase
-    console.log("Login:", { email, password });
+    setLoading(true);
+
+    try {
+      const { error } = await supabase.auth.signInWithPassword({
+        email,
+        password,
+      });
+
+      if (error) {
+        toast({
+          variant: "destructive",
+          title: "Login Failed",
+          description: error.message,
+        });
+      } else {
+        toast({
+          title: "Welcome back!",
+          description: "You have successfully logged in.",
+        });
+        navigate('/');
+      }
+    } catch (error) {
+      toast({
+        variant: "destructive",
+        title: "Error",
+        description: "An unexpected error occurred.",
+      });
+    } finally {
+      setLoading(false);
+    }
   };
 
   const handleSignup = async (e: React.FormEvent) => {
     e.preventDefault();
-    // TODO: Implement signup logic with Supabase
-    console.log("Signup:", { email, password, confirmPassword });
+    
+    if (password !== confirmPassword) {
+      toast({
+        variant: "destructive",
+        title: "Password Mismatch",
+        description: "Passwords do not match.",
+      });
+      return;
+    }
+
+    if (password.length < 6) {
+      toast({
+        variant: "destructive",
+        title: "Weak Password",
+        description: "Password must be at least 6 characters long.",
+      });
+      return;
+    }
+
+    setLoading(true);
+
+    try {
+      const { error } = await supabase.auth.signUp({
+        email,
+        password,
+        options: {
+          emailRedirectTo: `${window.location.origin}/`,
+        },
+      });
+
+      if (error) {
+        toast({
+          variant: "destructive",
+          title: "Signup Failed",
+          description: error.message,
+        });
+      } else {
+        toast({
+          title: "Account Created!",
+          description: "Please check your email to confirm your account.",
+        });
+      }
+    } catch (error) {
+      toast({
+        variant: "destructive",
+        title: "Error",
+        description: "An unexpected error occurred.",
+      });
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -88,8 +181,8 @@ const Auth = () => {
                       sparkCount={6}
                       duration={400}
                     >
-                      <Button type="submit" className="w-full">
-                        Sign In
+                      <Button type="submit" className="w-full" disabled={loading}>
+                        {loading ? "Signing In..." : "Sign In"}
                       </Button>
                     </ClickSpark>
                   </form>
@@ -137,8 +230,8 @@ const Auth = () => {
                       sparkCount={6}
                       duration={400}
                     >
-                      <Button type="submit" className="w-full">
-                        Create Account
+                      <Button type="submit" className="w-full" disabled={loading}>
+                        {loading ? "Creating Account..." : "Create Account"}
                       </Button>
                     </ClickSpark>
                   </form>

@@ -54,21 +54,14 @@ const HeroSection = () => {
             sparkCount={8}
             duration={500}
           >
-            <GlassSurface
-              width="auto"
-              height="auto"
-              borderRadius={16}
-              className="inline-block"
+            <Link
+              to="/chatbot"
+              className="bg-black/20 backdrop-blur-sm text-white font-semibold px-8 py-4 rounded-2xl border border-white/20 hover:bg-black/30 hover:scale-105 transition-all duration-300 flex items-center space-x-2 group"
             >
-              <Link
-                to="/chatbot"
-                className="bg-gradient-to-r from-primary to-primary-glow text-white font-semibold px-8 py-4 rounded-2xl hover:scale-105 transition-all duration-300 shadow-lg hover:shadow-xl flex items-center space-x-2 group"
-              >
-                <MessageCircle size={20} />
-                <span>Get Started</span>
-                <ArrowRight size={16} className="group-hover:translate-x-1 transition-transform" />
-              </Link>
-            </GlassSurface>
+              <MessageCircle size={20} />
+              <span>Get Started</span>
+              <ArrowRight size={16} className="group-hover:translate-x-1 transition-transform" />
+            </Link>
           </ClickSpark>
           
           <ClickSpark
@@ -78,19 +71,12 @@ const HeroSection = () => {
             sparkCount={8}
             duration={500}
           >
-            <GlassSurface
-              width="auto"
-              height="auto"
-              borderRadius={16}
-              className="inline-block"
+            <Link
+              to="/about"
+              className="bg-black/20 backdrop-blur-sm text-white font-semibold px-8 py-4 rounded-2xl border border-white/20 hover:bg-black/30 hover:scale-105 transition-all duration-300 flex items-center space-x-2"
             >
-              <Link
-                to="/about"
-                className="bg-white/10 backdrop-blur-sm text-white font-semibold px-8 py-4 rounded-2xl border border-white/20 hover:bg-white/20 hover:scale-105 transition-all duration-300 flex items-center space-x-2"
-              >
-                <span>Learn More</span>
-              </Link>
-            </GlassSurface>
+              <span>Learn More</span>
+            </Link>
           </ClickSpark>
         </div>
 
