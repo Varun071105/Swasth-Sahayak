@@ -94,12 +94,19 @@ const FeatureCards = () => {
               sparkCount={12}
               duration={800}
             >
-              <a
-                href="/chatbot"
-                className="bg-gradient-to-r from-primary to-primary-glow text-white font-semibold px-8 py-4 rounded-2xl hover:scale-105 transition-all duration-300 shadow-lg hover:shadow-xl inline-flex items-center"
+              <GlassSurface
+                width="auto"
+                height="auto"
+                borderRadius={16}
+                className="inline-block"
               >
-                Chat with Health Bot
-              </a>
+                <a
+                  href="/chatbot"
+                  className="bg-gradient-to-r from-primary to-primary-glow text-white font-semibold px-8 py-4 rounded-2xl hover:scale-105 transition-all duration-300 shadow-lg hover:shadow-xl inline-flex items-center"
+                >
+                  Chat with Health Bot
+                </a>
+              </GlassSurface>
             </ClickSpark>
           </div>
         </div>
