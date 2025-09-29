@@ -1,4 +1,5 @@
 import GlassNavbar from "@/components/GlassNavbar";
+import ScrollFloat from "@/components/ScrollFloat";
 import { ExternalLink, Download, BookOpen, Video } from "lucide-react";
 
 const Resources = () => {
@@ -49,16 +50,18 @@ const Resources = () => {
         <div className="max-w-6xl mx-auto">
           {/* Header */}
           <div className="text-center mb-16">
-            <h1 className="text-5xl md:text-6xl font-bold text-white mb-6">
-              Health{" "}
-              <span className="bg-gradient-to-r from-green-400 to-emerald-300 bg-clip-text text-transparent">
-                Resources
-              </span>
-            </h1>
-            <p className="text-xl text-white/80 leading-relaxed max-w-2xl mx-auto">
-              Comprehensive collection of health guides, tools, and educational materials 
-              to support your wellness journey.
-            </p>
+            <ScrollFloat
+              containerClassName="mb-6"
+              textClassName="text-5xl md:text-6xl font-bold text-white !text-5xl md:!text-6xl"
+            >
+              Health Resources
+            </ScrollFloat>
+            <ScrollFloat
+              containerClassName=""
+              textClassName="text-xl text-white/80 leading-relaxed max-w-2xl mx-auto !text-xl !font-normal"
+            >
+              Comprehensive collection of health guides, tools, and educational materials to support your wellness journey.
+            </ScrollFloat>
           </div>
 
           {/* Resource Categories */}

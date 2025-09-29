@@ -1,4 +1,5 @@
 import GlassNavbar from "@/components/GlassNavbar";
+import ScrollFloat from "@/components/ScrollFloat";
 import { Heart, Users, Shield, Zap } from "lucide-react";
 
 const About = () => {
@@ -33,16 +34,18 @@ const About = () => {
         <div className="max-w-4xl mx-auto">
           {/* Hero Section */}
           <div className="text-center mb-16">
-            <h1 className="text-5xl md:text-6xl font-bold text-white mb-6">
-              About{" "}
-              <span className="bg-gradient-to-r from-green-400 to-emerald-300 bg-clip-text text-transparent">
-                HealthConnect
-              </span>
-            </h1>
-            <p className="text-xl text-white/80 leading-relaxed max-w-2xl mx-auto">
-              Empowering individuals with accessible health information and AI-powered assistance 
-              to make informed decisions about their well-being.
-            </p>
+            <ScrollFloat
+              containerClassName="mb-6"
+              textClassName="text-5xl md:text-6xl font-bold text-white !text-5xl md:!text-6xl"
+            >
+              About Swasth-Sahaya
+            </ScrollFloat>
+            <ScrollFloat
+              containerClassName=""
+              textClassName="text-xl text-white/80 leading-relaxed max-w-2xl mx-auto !text-xl !font-normal"
+            >
+              Empowering individuals with accessible health information and AI-powered assistance to make informed decisions about their well-being.
+            </ScrollFloat>
           </div>
 
           {/* Mission Statement */}

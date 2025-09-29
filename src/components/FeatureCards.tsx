@@ -1,6 +1,7 @@
 import { Heart, Dumbbell, Brain, Shield } from "lucide-react";
 import GlassSurface from "./GlassSurface";
 import ClickSpark from "./ClickSpark";
+import ScrollFloat from "./ScrollFloat";
 
 const FeatureCards = () => {
   const features = [
@@ -35,12 +36,18 @@ const FeatureCards = () => {
       <div className="max-w-6xl mx-auto">
         {/* Section Header */}
         <div className="text-center mb-16">
-          <h2 className="text-4xl md:text-5xl font-bold text-white mb-4">
+          <ScrollFloat
+            containerClassName="mb-4"
+            textClassName="text-4xl md:text-5xl font-bold text-white !text-4xl md:!text-5xl"
+          >
             Comprehensive Health Resources
-          </h2>
-          <p className="text-xl text-white/70 max-w-2xl mx-auto">
+          </ScrollFloat>
+          <ScrollFloat
+            containerClassName=""
+            textClassName="text-xl text-white/70 max-w-2xl mx-auto !text-xl !font-normal"
+          >
             Explore our wide range of health and wellness resources designed to support every aspect of your well-being.
-          </p>
+          </ScrollFloat>
         </div>
 
         {/* Feature Cards Grid */}
@@ -81,12 +88,18 @@ const FeatureCards = () => {
         {/* Call to Action */}
         <div className="text-center mt-16">
           <div className="p-8 max-w-2xl mx-auto">
-            <h3 className="text-2xl font-semibold text-white mb-3">
+            <ScrollFloat
+              containerClassName="mb-3"
+              textClassName="text-2xl font-semibold text-white !text-2xl"
+            >
               Ready to start your health journey?
-            </h3>
-            <p className="text-white/80 mb-6">
+            </ScrollFloat>
+            <ScrollFloat
+              containerClassName="mb-6"
+              textClassName="text-white/80 !text-base !font-normal"
+            >
               Our AI health assistant is here to help you 24/7
-            </p>
+            </ScrollFloat>
             <ClickSpark
               sparkColor="#71B280"
               sparkSize={14}

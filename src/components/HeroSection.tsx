@@ -4,6 +4,7 @@ import LiquidEther from "./LiquidEther";
 import GlassSurface from "./GlassSurface";
 import ClickSpark from "./ClickSpark";
 import BlurText from "./BlurText";
+import ScrollFloat from "./ScrollFloat";
 
 const HeroSection = () => {
   return (
@@ -43,9 +44,12 @@ const HeroSection = () => {
 
         {/* Subtext */}
         <div className="mb-12">
-          <p className="text-xl md:text-2xl text-white/80 leading-relaxed max-w-2xl mx-auto">
+          <ScrollFloat
+            containerClassName=""
+            textClassName="text-xl md:text-2xl text-white/80 leading-relaxed max-w-2xl mx-auto !text-xl md:!text-2xl !font-normal"
+          >
             Chat instantly with our Health Bot and explore wellness resources designed to support your journey to better health.
-          </p>
+          </ScrollFloat>
         </div>
 
         {/* Action Buttons */}

@@ -1,6 +1,7 @@
 import { useState, useRef, useEffect } from "react";
 import { Send, ArrowLeft, Bot, User } from "lucide-react";
 import { Link } from "react-router-dom";
+import ScrollFloat from "@/components/ScrollFloat";
 
 interface Message {
   id: string;
@@ -100,7 +101,12 @@ const ChatBot = () => {
                 <Bot size={20} className="text-white" />
               </div>
               <div>
-                <h1 className="text-white font-semibold">Health Assistant</h1>
+                <ScrollFloat
+                  containerClassName=""
+                  textClassName="text-white font-semibold !text-base !font-semibold"
+                >
+                  Health Assistant
+                </ScrollFloat>
                 <p className="text-white/70 text-sm">Online • Ready to help</p>
               </div>
             </div>

@@ -1,14 +1,31 @@
-import { useState } from "react";
-import { Menu, X, LogIn } from "lucide-react";
-import { Link, useLocation } from "react-router-dom";
+import { useState, useEffect } from "react";
+import { Menu, X, LogIn, LayoutDashboard } from "lucide-react";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import GlassSurface from "./GlassSurface";
 import ClickSpark from "./ClickSpark";
+import { supabase } from "@/integrations/supabase/client";
 import logo from "@/assets/logo.png";
 
 const GlassNavbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [user, setUser] = useState(null);
   const location = useLocation();
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    // Check current user
+    supabase.auth.getUser().then(({ data: { user } }) => {
+      setUser(user);
+    });
+
+    // Listen for auth changes
+    const { data: { subscription } } = supabase.auth.onAuthStateChange((event, session) => {
+      setUser(session?.user ?? null);
+    });
+
+    return () => subscription.unsubscribe();
+  }, []);
 
   const navLinks = [
     { name: "Home", path: "/" },
@@ -35,15 +52,15 @@ const GlassNavbar = () => {
             sparkCount={6}
             duration={400}
           >
-            <Link to="/" className="flex items-center space-x-3">
-              <img src={logo} alt="Swasth-Sahaya Logo" className="w-10 h-10" />
-              <span className="text-white font-semibold text-xl">Swasth-Sahaya</span>
+            <Link to="/" className="flex items-center space-x-2 md:space-x-3">
+              <img src={logo} alt="Swasth-Sahaya Logo" className="w-8 h-8 md:w-10 md:h-10" />
+              <span className="text-white font-semibold text-lg md:text-xl">Swasth-Sahaya</span>
             </Link>
           </ClickSpark>
 
           {/* Desktop Navigation */}
-          <div className="hidden md:flex items-center space-x-6 lg:space-x-8">
-            <div className="flex items-center space-x-6">
+          <div className="hidden md:flex items-center space-x-4 lg:space-x-6">
+            <div className="flex items-center space-x-4">
               {navLinks.map((link) => (
                 <ClickSpark
                   key={link.name}
@@ -55,7 +72,7 @@ const GlassNavbar = () => {
                 >
                   <Link
                     to={link.path}
-                    className={`text-white/90 hover:text-white transition-colors duration-300 font-medium px-3 py-2 rounded-lg hover:bg-white/10 ${
+                    className={`text-white/90 hover:text-white transition-colors duration-300 font-medium px-2 py-1 rounded-lg hover:bg-white/10 text-sm ${
                       location.pathname === link.path ? "text-white bg-white/10" : ""
                     }`}
                   >
@@ -65,7 +82,7 @@ const GlassNavbar = () => {
               ))}
             </div>
             
-            {/* Login Button */}
+            {/* Dashboard Button */}
             <ClickSpark
               sparkColor="#71B280"
               sparkSize={8}
@@ -73,17 +90,55 @@ const GlassNavbar = () => {
               sparkCount={6}
               duration={400}
             >
-              <Link to="/auth">
-                <Button variant="outline" size="sm" className="text-white border-white/30 hover:bg-white/10 hover:border-white/50">
-                  <LogIn className="w-4 h-4 mr-2" />
-                  Login
-                </Button>
-              </Link>
+              <Button 
+                variant="outline" 
+                size="sm" 
+                className="text-white border-white/30 hover:bg-white/10 hover:border-white/50"
+                onClick={() => user ? navigate('/dashboard') : navigate('/auth')}
+              >
+                <LayoutDashboard className="w-4 h-4 mr-2" />
+                Dashboard
+              </Button>
             </ClickSpark>
+            
+            {/* Login/Logout Button */}
+            {!user ? (
+              <ClickSpark
+                sparkColor="#71B280"
+                sparkSize={8}
+                sparkRadius={15}
+                sparkCount={6}
+                duration={400}
+              >
+                <Link to="/auth">
+                  <Button variant="outline" size="sm" className="text-white border-white/30 hover:bg-white/10 hover:border-white/50">
+                    <LogIn className="w-4 h-4 mr-2" />
+                    Login
+                  </Button>
+                </Link>
+              </ClickSpark>
+            ) : (
+              <ClickSpark
+                sparkColor="#71B280"
+                sparkSize={8}
+                sparkRadius={15}
+                sparkCount={6}
+                duration={400}
+              >
+                <Button 
+                  variant="outline" 
+                  size="sm" 
+                  className="text-white border-white/30 hover:bg-white/10 hover:border-white/50"
+                  onClick={() => supabase.auth.signOut()}
+                >
+                  Logout
+                </Button>
+              </ClickSpark>
+            )}
           </div>
 
           {/* Mobile Menu Button */}
-          <div className="md:hidden flex items-center space-x-2">
+          <div className="md:hidden flex items-center space-x-1">
             <ClickSpark
               sparkColor="#71B280"
               sparkSize={6}
@@ -91,12 +146,31 @@ const GlassNavbar = () => {
               sparkCount={4}
               duration={300}
             >
-              <Link to="/auth">
-                <Button variant="outline" size="sm" className="text-white border-white/30 hover:bg-white/10 hover:border-white/50 px-2">
-                  <LogIn className="w-4 h-4" />
-                </Button>
-              </Link>
+              <Button 
+                variant="outline" 
+                size="sm" 
+                className="text-white border-white/30 hover:bg-white/10 hover:border-white/50 px-2"
+                onClick={() => user ? navigate('/dashboard') : navigate('/auth')}
+              >
+                <LayoutDashboard className="w-4 h-4" />
+              </Button>
             </ClickSpark>
+            
+            {!user && (
+              <ClickSpark
+                sparkColor="#71B280"
+                sparkSize={6}
+                sparkRadius={12}
+                sparkCount={4}
+                duration={300}
+              >
+                <Link to="/auth">
+                  <Button variant="outline" size="sm" className="text-white border-white/30 hover:bg-white/10 hover:border-white/50 px-2">
+                    <LogIn className="w-4 h-4" />
+                  </Button>
+                </Link>
+              </ClickSpark>
+            )}
             
             <ClickSpark
               sparkColor="#71B280"
@@ -109,7 +183,7 @@ const GlassNavbar = () => {
                 className="text-white p-2 rounded-lg hover:bg-white/10"
                 onClick={() => setIsMenuOpen(!isMenuOpen)}
               >
-                {isMenuOpen ? <X size={24} /> : <Menu size={24} />}
+                {isMenuOpen ? <X size={20} /> : <Menu size={20} />}
               </button>
             </ClickSpark>
           </div>
@@ -139,6 +213,27 @@ const GlassNavbar = () => {
                   </Link>
                 </ClickSpark>
               ))}
+              
+              {user && (
+                <ClickSpark
+                  sparkColor="#71B280"
+                  sparkSize={6}
+                  sparkRadius={12}
+                  sparkCount={5}
+                  duration={300}
+                >
+                  <Button 
+                    variant="outline" 
+                    className="text-white border-white/30 hover:bg-white/10 hover:border-white/50 w-full justify-start"
+                    onClick={() => {
+                      supabase.auth.signOut();
+                      setIsMenuOpen(false);
+                    }}
+                  >
+                    Logout
+                  </Button>
+                </ClickSpark>
+              )}
             </div>
           </div>
         )}
