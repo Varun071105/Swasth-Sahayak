@@ -3,6 +3,7 @@ import { ArrowRight, MessageCircle } from "lucide-react";
 import LiquidEther from "./LiquidEther";
 import GlassSurface from "./GlassSurface";
 import ClickSpark from "./ClickSpark";
+import BlurText from "./BlurText";
 
 const HeroSection = () => {
   return (
@@ -30,12 +31,14 @@ const HeroSection = () => {
       <div className="text-center max-w-4xl mx-auto relative z-10">
         {/* Main Headline */}
         <div className="mb-8">
-          <h1 className="text-5xl md:text-7xl font-bold text-white leading-tight">
-            Your Health,{" "}
-            <span className="bg-gradient-to-r from-[#71B280] to-[#A8D5BA] bg-clip-text text-transparent">
-              Our Priority
-            </span>
-          </h1>
+          <BlurText
+            text="Your Health, Our Priority"
+            delay={150}
+            animateBy="words"
+            direction="top"
+            className="text-5xl md:text-7xl font-bold text-white leading-tight"
+            onAnimationComplete={() => console.log('Animation completed!')}
+          />
         </div>
 
         {/* Subtext */}

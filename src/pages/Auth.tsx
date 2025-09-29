@@ -24,7 +24,7 @@ const Auth = () => {
     const checkUser = async () => {
       const { data: { user } } = await supabase.auth.getUser();
       if (user) {
-        navigate('/');
+        navigate('/dashboard');
       }
     };
     checkUser();
@@ -51,7 +51,7 @@ const Auth = () => {
           title: "Welcome back!",
           description: "You have successfully logged in.",
         });
-        navigate('/');
+        navigate('/dashboard');
       }
     } catch (error) {
       toast({
