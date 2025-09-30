@@ -3,8 +3,8 @@ import { useNavigate } from "react-router-dom";
 import { supabase } from "@/integrations/supabase/client";
 import { User } from "@supabase/supabase-js";
 import GlassNavbar from "@/components/GlassNavbar";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { Calendar, Users, FileText, Stethoscope, Bot, Plus } from "lucide-react";
+import ScrollStack, { ScrollStackItem } from "@/components/ScrollStack";
+import { Calendar, Users, FileText, Stethoscope, Bot } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
 const Dashboard = () => {
@@ -84,76 +84,136 @@ const Dashboard = () => {
     <div className="min-h-screen bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900">
       <GlassNavbar />
       
-      <div className="pt-24 px-4 pb-12">
-        <div className="max-w-7xl mx-auto">
-          {/* Welcome Section */}
-          <div className="text-center mb-12">
+      <ScrollStack
+        itemDistance={80}
+        itemScale={0.05}
+        itemStackDistance={40}
+        stackPosition="25%"
+        scaleEndPosition="15%"
+        baseScale={0.9}
+      >
+        {/* Welcome Card */}
+        <ScrollStackItem itemClassName="bg-gradient-to-br from-blue-900/40 to-teal-900/40 backdrop-blur-md border border-white/20">
+          <div className="text-center">
             <h1 className="text-4xl md:text-5xl font-bold text-white mb-4">
               Welcome Back, {user?.email?.split('@')[0]}!
             </h1>
-            <p className="text-xl text-white/70 max-w-2xl mx-auto">
+            <p className="text-xl text-white/80 max-w-2xl mx-auto">
               Your personal health dashboard - track, analyze, and improve your wellness journey
             </p>
           </div>
+        </ScrollStackItem>
 
-          {/* Dashboard Grid */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {dashboardFeatures.map((feature, index) => (
-              <Card 
-                key={index} 
-                className="bg-white/10 backdrop-blur-md border border-white/20 hover:bg-white/15 transition-all duration-300 cursor-pointer group"
-                onClick={feature.action}
-              >
-                <CardHeader className="text-center">
-                  <div className={`w-16 h-16 mx-auto mb-4 rounded-full bg-gradient-to-r ${feature.color} flex items-center justify-center group-hover:scale-110 transition-transform duration-300`}>
-                    <feature.icon className="w-8 h-8 text-white" />
-                  </div>
-                  <CardTitle className="text-white text-xl mb-2">{feature.title}</CardTitle>
-                  <CardDescription className="text-white/70">
-                    {feature.description}
-                  </CardDescription>
-                </CardHeader>
-                <CardContent className="text-center">
-                  <Button 
-                    variant="ghost" 
-                    className="text-white/80 hover:text-white hover:bg-white/10 group-hover:bg-white/20"
-                  >
-                    {feature.title === "Health Chatbot" ? "Start Chat" : "Coming Soon"}
-                    <Plus className="w-4 h-4 ml-2" />
-                  </Button>
-                </CardContent>
-              </Card>
-            ))}
+        {/* Vaccination Schedules */}
+        <ScrollStackItem itemClassName="bg-gradient-to-br from-blue-500/20 to-blue-600/20 backdrop-blur-md border border-blue-400/30">
+          <div className="flex flex-col md:flex-row items-center justify-between gap-6">
+            <div className="flex items-center gap-6">
+              <div className="w-20 h-20 rounded-full bg-gradient-to-r from-blue-500 to-blue-600 flex items-center justify-center flex-shrink-0">
+                <Calendar className="w-10 h-10 text-white" />
+              </div>
+              <div>
+                <h2 className="text-3xl font-bold text-white mb-2">Vaccination Schedules</h2>
+                <p className="text-white/70 text-lg">Track and manage your vaccination appointments and reminders</p>
+              </div>
+            </div>
+            <Button 
+              variant="outline" 
+              className="bg-white/10 text-white border-white/20 hover:bg-white/20 whitespace-nowrap"
+              onClick={() => console.log("Vaccination feature coming soon")}
+            >
+              Coming Soon
+            </Button>
           </div>
+        </ScrollStackItem>
 
-          {/* Quick Stats */}
-          <div className="mt-12 grid grid-cols-1 md:grid-cols-3 gap-6">
-            <Card className="bg-white/10 backdrop-blur-md border border-white/20">
-              <CardHeader className="text-center">
-                <CardTitle className="text-white">Health Score</CardTitle>
-                <div className="text-3xl font-bold text-green-400">85%</div>
-                <CardDescription className="text-white/70">Based on your recent activities</CardDescription>
-              </CardHeader>
-            </Card>
-            
-            <Card className="bg-white/10 backdrop-blur-md border border-white/20">
-              <CardHeader className="text-center">
-                <CardTitle className="text-white">Next Appointment</CardTitle>
-                <div className="text-2xl font-bold text-blue-400">Dec 15</div>
-                <CardDescription className="text-white/70">Annual checkup with Dr. Smith</CardDescription>
-              </CardHeader>
-            </Card>
-            
-            <Card className="bg-white/10 backdrop-blur-md border border-white/20">
-              <CardHeader className="text-center">
-                <CardTitle className="text-white">Active Goals</CardTitle>
-                <div className="text-3xl font-bold text-purple-400">3</div>
-                <CardDescription className="text-white/70">Fitness and nutrition goals</CardDescription>
-              </CardHeader>
-            </Card>
+        {/* Personalized Health & Diet Planner */}
+        <ScrollStackItem itemClassName="bg-gradient-to-br from-green-500/20 to-green-600/20 backdrop-blur-md border border-green-400/30">
+          <div className="flex flex-col md:flex-row items-center justify-between gap-6">
+            <div className="flex items-center gap-6">
+              <div className="w-20 h-20 rounded-full bg-gradient-to-r from-green-500 to-green-600 flex items-center justify-center flex-shrink-0">
+                <Users className="w-10 h-10 text-white" />
+              </div>
+              <div>
+                <h2 className="text-3xl font-bold text-white mb-2">Personalized Health & Diet Planner</h2>
+                <p className="text-white/70 text-lg">Get customized health and nutrition plans based on your profile</p>
+              </div>
+            </div>
+            <Button 
+              variant="outline" 
+              className="bg-white/10 text-white border-white/20 hover:bg-white/20 whitespace-nowrap"
+              onClick={() => console.log("Diet planner feature coming soon")}
+            >
+              Coming Soon
+            </Button>
           </div>
-        </div>
-      </div>
+        </ScrollStackItem>
+
+        {/* Report Analyzer */}
+        <ScrollStackItem itemClassName="bg-gradient-to-br from-purple-500/20 to-purple-600/20 backdrop-blur-md border border-purple-400/30">
+          <div className="flex flex-col md:flex-row items-center justify-between gap-6">
+            <div className="flex items-center gap-6">
+              <div className="w-20 h-20 rounded-full bg-gradient-to-r from-purple-500 to-purple-600 flex items-center justify-center flex-shrink-0">
+                <FileText className="w-10 h-10 text-white" />
+              </div>
+              <div>
+                <h2 className="text-3xl font-bold text-white mb-2">Report Analyzer</h2>
+                <p className="text-white/70 text-lg">Upload and analyze your medical reports with AI assistance</p>
+              </div>
+            </div>
+            <Button 
+              variant="outline" 
+              className="bg-white/10 text-white border-white/20 hover:bg-white/20 whitespace-nowrap"
+              onClick={() => console.log("Report analyzer feature coming soon")}
+            >
+              Coming Soon
+            </Button>
+          </div>
+        </ScrollStackItem>
+
+        {/* Symptoms to Disease Analysis */}
+        <ScrollStackItem itemClassName="bg-gradient-to-br from-red-500/20 to-red-600/20 backdrop-blur-md border border-red-400/30">
+          <div className="flex flex-col md:flex-row items-center justify-between gap-6">
+            <div className="flex items-center gap-6">
+              <div className="w-20 h-20 rounded-full bg-gradient-to-r from-red-500 to-red-600 flex items-center justify-center flex-shrink-0">
+                <Stethoscope className="w-10 h-10 text-white" />
+              </div>
+              <div>
+                <h2 className="text-3xl font-bold text-white mb-2">Symptoms to Disease Analysis</h2>
+                <p className="text-white/70 text-lg">Get insights about potential conditions based on your symptoms</p>
+              </div>
+            </div>
+            <Button 
+              variant="outline" 
+              className="bg-white/10 text-white border-white/20 hover:bg-white/20 whitespace-nowrap"
+              onClick={() => console.log("Symptom analyzer feature coming soon")}
+            >
+              Coming Soon
+            </Button>
+          </div>
+        </ScrollStackItem>
+
+        {/* Health Chatbot */}
+        <ScrollStackItem itemClassName="bg-gradient-to-br from-teal-500/20 to-teal-600/20 backdrop-blur-md border border-teal-400/30">
+          <div className="flex flex-col md:flex-row items-center justify-between gap-6">
+            <div className="flex items-center gap-6">
+              <div className="w-20 h-20 rounded-full bg-gradient-to-r from-teal-500 to-teal-600 flex items-center justify-center flex-shrink-0">
+                <Bot className="w-10 h-10 text-white" />
+              </div>
+              <div>
+                <h2 className="text-3xl font-bold text-white mb-2">Health Chatbot</h2>
+                <p className="text-white/70 text-lg">Chat with our AI health assistant for instant support</p>
+              </div>
+            </div>
+            <Button 
+              variant="outline" 
+              className="bg-white/10 text-white border-white/20 hover:bg-white/20 whitespace-nowrap"
+              onClick={() => navigate("/chatbot")}
+            >
+              Start Chat
+            </Button>
+          </div>
+        </ScrollStackItem>
+      </ScrollStack>
     </div>
   );
 };

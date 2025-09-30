@@ -87,12 +87,6 @@ const HeroSection = () => {
           </ClickSpark>
         </div>
 
-        {/* Disclaimer */}
-        <div className="p-6 max-w-2xl mx-auto bg-orange-900/20 backdrop-blur-sm rounded-2xl border border-orange-500/30">
-          <p className="text-orange-100 text-sm font-medium">
-            ⚠️ <strong>Important:</strong> This chatbot is for informational purposes only and does not replace professional medical advice, diagnosis, or treatment.
-          </p>
-        </div>
       </div>
     </section>
   );
