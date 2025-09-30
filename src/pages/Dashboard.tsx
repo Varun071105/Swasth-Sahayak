@@ -4,12 +4,14 @@ import { supabase } from "@/integrations/supabase/client";
 import { User } from "@supabase/supabase-js";
 import GlassNavbar from "@/components/GlassNavbar";
 import ScrollStack, { ScrollStackItem } from "@/components/ScrollStack";
+import DietPlannerChat from "@/components/DietPlannerChat";
 import { Calendar, Users, FileText, Stethoscope, Bot } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
 const Dashboard = () => {
   const [user, setUser] = useState<User | null>(null);
   const [loading, setLoading] = useState(true);
+  const [showDietPlanner, setShowDietPlanner] = useState(false);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -141,9 +143,9 @@ const Dashboard = () => {
             <Button 
               variant="outline" 
               className="bg-white/10 text-white border-white/20 hover:bg-white/20 whitespace-nowrap"
-              onClick={() => console.log("Diet planner feature coming soon")}
+              onClick={() => setShowDietPlanner(true)}
             >
-              Coming Soon
+              Start Planning
             </Button>
           </div>
         </ScrollStackItem>
@@ -214,6 +216,8 @@ const Dashboard = () => {
           </div>
         </ScrollStackItem>
       </ScrollStack>
+
+      {showDietPlanner && <DietPlannerChat onClose={() => setShowDietPlanner(false)} />}
     </div>
   );
 };

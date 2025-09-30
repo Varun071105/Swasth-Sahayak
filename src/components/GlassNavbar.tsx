@@ -52,9 +52,9 @@ const GlassNavbar = () => {
             sparkCount={6}
             duration={400}
           >
-            <Link to="/" className="flex items-center space-x-2 md:space-x-3">
-              <img src={logo} alt="Swasth-Sahaya Logo" className="w-10 h-10 md:w-12 md:h-12" />
-              <span className="text-white font-bold text-2xl md:text-3xl">Swasth-Sahaya</span>
+            <Link to="/" className="flex items-center gap-3">
+              <img src={logo} alt="Swasth-Sahaya Logo" className="h-10 w-auto object-contain" />
+              <span className="text-white font-bold text-xl md:text-2xl leading-none">Swasth-Sahaya</span>
             </Link>
           </ClickSpark>
 

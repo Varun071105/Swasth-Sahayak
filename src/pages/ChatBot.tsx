@@ -2,6 +2,8 @@ import { useState, useRef, useEffect } from "react";
 import { Send, ArrowLeft, Bot, User } from "lucide-react";
 import { Link } from "react-router-dom";
 import ScrollFloat from "@/components/ScrollFloat";
+import { supabase } from "@/integrations/supabase/client";
+import { useToast } from "@/components/ui/use-toast";
 
 interface Message {
   id: string;
@@ -14,15 +16,16 @@ const ChatBot = () => {
   const [messages, setMessages] = useState<Message[]>([
     {
       id: "1",
-      text: "Hello! I'm your Health Assistant. How can I help you today?",
+      text: "Hello! I'm your Health Assistant powered by AI. How can I help you today?",
       isUser: false,
       timestamp: new Date()
     }
   ]);
   
   const [inputMessage, setInputMessage] = useState("");
-  const [isTyping, setIsTyping] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
   const messagesEndRef = useRef<HTMLDivElement>(null);
+  const { toast } = useToast();
 
   const quickReplies = [
     "Tell me about nutrition",
@@ -37,7 +40,7 @@ const ChatBot = () => {
   }, [messages]);
 
   const handleSendMessage = async (text: string) => {
-    if (!text.trim()) return;
+    if (!text.trim() || isLoading) return;
 
     const userMessage: Message = {
       id: Date.now().toString(),
@@ -48,43 +51,38 @@ const ChatBot = () => {
 
     setMessages(prev => [...prev, userMessage]);
     setInputMessage("");
-    setIsTyping(true);
+    setIsLoading(true);
 
-    // Simulate bot response with delay
-    setTimeout(() => {
-      const botResponse = generateBotResponse(text.trim());
+    try {
+      const conversationHistory = [...messages, userMessage].map(msg => ({
+        role: msg.isUser ? 'user' : 'assistant',
+        content: msg.text
+      }));
+
+      const { data, error } = await supabase.functions.invoke('health-chat', {
+        body: { messages: conversationHistory }
+      });
+
+      if (error) throw error;
+
       const botMessage: Message = {
         id: (Date.now() + 1).toString(),
-        text: botResponse,
+        text: data.message,
         isUser: false,
         timestamp: new Date()
       };
       
       setMessages(prev => [...prev, botMessage]);
-      setIsTyping(false);
-    }, 1500);
-  };
-
-  const generateBotResponse = (userText: string): string => {
-    const text = userText.toLowerCase();
-    
-    if (text.includes("nutrition") || text.includes("food") || text.includes("diet")) {
-      return "Great question about nutrition! 🥗 A balanced diet should include plenty of fruits, vegetables, whole grains, lean proteins, and healthy fats. Would you like specific meal planning tips or information about any particular dietary concerns?";
+    } catch (error) {
+      console.error('Error:', error);
+      toast({
+        title: "Error",
+        description: "Failed to get response. Please try again.",
+        variant: "destructive"
+      });
+    } finally {
+      setIsLoading(false);
     }
-    
-    if (text.includes("exercise") || text.includes("workout") || text.includes("fitness")) {
-      return "Exercise is fantastic for your health! 💪 I recommend at least 150 minutes of moderate aerobic activity per week, plus strength training twice a week. What's your current fitness level, and what type of activities do you enjoy?";
-    }
-    
-    if (text.includes("mental") || text.includes("stress") || text.includes("anxiety")) {
-      return "Mental health is just as important as physical health! 🧠 Some effective stress management techniques include deep breathing, meditation, regular exercise, and maintaining social connections. Would you like me to guide you through a quick breathing exercise?";
-    }
-    
-    if (text.includes("first aid") || text.includes("emergency")) {
-      return "First aid knowledge can save lives! 🚑 Key basics include: checking for responsiveness, calling emergency services, controlling bleeding with pressure, and knowing CPR. Would you like information about any specific first aid technique?";
-    }
-    
-    return "Thank you for your question! While I can provide general health information, remember that I'm not a substitute for professional medical advice. For specific health concerns, please consult with a healthcare provider. Is there a particular health topic you'd like to learn more about?";
   };
 
   return (
@@ -152,7 +150,7 @@ const ChatBot = () => {
           ))}
 
           {/* Typing Indicator */}
-          {isTyping && (
+          {isLoading && (
             <div className="flex items-end space-x-3">
               <div className="w-8 h-8 bg-gradient-to-r from-green-400 to-emerald-500 rounded-full flex items-center justify-center flex-shrink-0">
                 <Bot size={16} className="text-white" />
@@ -207,11 +205,11 @@ const ChatBot = () => {
               onChange={(e) => setInputMessage(e.target.value)}
               placeholder="Type your health question..."
               className="flex-1 glass-panel px-4 py-3 text-white placeholder-white/50 focus:outline-none focus:ring-2 focus:ring-green-400/50"
-              disabled={isTyping}
+              disabled={isLoading}
             />
             <button
               type="submit"
-              disabled={!inputMessage.trim() || isTyping}
+              disabled={!inputMessage.trim() || isLoading}
               className="glass-button-primary px-6 py-3 disabled:opacity-50 disabled:cursor-not-allowed"
             >
               <Send size={20} />
