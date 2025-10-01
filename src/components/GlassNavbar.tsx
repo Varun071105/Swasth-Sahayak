@@ -5,7 +5,7 @@ import { Button } from "@/components/ui/button";
 import GlassSurface from "./GlassSurface";
 import ClickSpark from "./ClickSpark";
 import { supabase } from "@/integrations/supabase/client";
-import logo from "@/assets/logo.png";
+import logo from "@/assets/swasth-sahayak-logo.png";
 
 const GlassNavbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -52,9 +52,12 @@ const GlassNavbar = () => {
             sparkCount={6}
             duration={400}
           >
-            <Link to="/" className="flex items-center gap-3">
-              <img src={logo} alt="Swasth-Sahaya Logo" className="h-10 w-auto object-contain" />
-              <span className="text-white font-bold text-xl md:text-2xl leading-none">Swasth-Sahaya</span>
+            <Link to="/" className="flex items-center">
+              <img 
+                src={logo} 
+                alt="Swasth Sahayak Logo" 
+                className="h-12 md:h-16 w-auto object-contain" 
+              />
             </Link>
           </ClickSpark>
 
