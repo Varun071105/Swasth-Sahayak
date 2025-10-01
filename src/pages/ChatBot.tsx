@@ -2,6 +2,7 @@ import { useState, useRef, useEffect } from "react";
 import { Send, ArrowLeft, Bot, User } from "lucide-react";
 import { Link } from "react-router-dom";
 import ScrollFloat from "@/components/ScrollFloat";
+import Footer from "@/components/Footer";
 import { supabase } from "@/integrations/supabase/client";
 import { useToast } from "@/components/ui/use-toast";
 
@@ -88,107 +89,7 @@ const ChatBot = () => {
   return (
     <div className="min-h-screen flex flex-col">
       {/* Header */}
-      <div className="glass-navbar relative">
-        <div className="flex items-center justify-between">
-          <div className="flex items-center space-x-4">
-            <Link to="/" className="text-white hover:text-white/80 transition-colors">
-              <ArrowLeft size={24} />
-            </Link>
-            <div className="flex items-center space-x-3">
-              <div className="w-10 h-10 bg-gradient-to-r from-green-400 to-emerald-500 rounded-full flex items-center justify-center">
-                <Bot size={20} className="text-white" />
-              </div>
-              <div>
-                <ScrollFloat
-                  containerClassName=""
-                  textClassName="text-white font-semibold !text-base !font-semibold"
-                >
-                  Health Assistant
-                </ScrollFloat>
-                <p className="text-white/70 text-sm">Online • Ready to help</p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      {/* Messages Container */}
-      <div className="flex-1 px-4 py-6 overflow-y-auto">
-        <div className="max-w-4xl mx-auto space-y-4">
-          {messages.map((message) => (
-            <div
-              key={message.id}
-              className={`flex items-end space-x-3 ${
-                message.isUser ? "justify-end" : "justify-start"
-              }`}
-            >
-              {!message.isUser && (
-                <div className="w-8 h-8 bg-gradient-to-r from-green-400 to-emerald-500 rounded-full flex items-center justify-center flex-shrink-0">
-                  <Bot size={16} className="text-white" />
-                </div>
-              )}
-              
-              <div
-                className={`max-w-xs md:max-w-md px-4 py-2 rounded-2xl ${
-                  message.isUser
-                    ? "bg-green-500 text-white rounded-br-md"
-                    : "glass-panel text-white rounded-bl-md"
-                }`}
-              >
-                <p className="text-sm md:text-base">{message.text}</p>
-                <p className="text-xs mt-1 opacity-70">
-                  {message.timestamp.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
-                </p>
-              </div>
-
-              {message.isUser && (
-                <div className="w-8 h-8 bg-blue-500 rounded-full flex items-center justify-center flex-shrink-0">
-                  <User size={16} className="text-white" />
-                </div>
-              )}
-            </div>
-          ))}
-
-          {/* Typing Indicator */}
-          {isLoading && (
-            <div className="flex items-end space-x-3">
-              <div className="w-8 h-8 bg-gradient-to-r from-green-400 to-emerald-500 rounded-full flex items-center justify-center flex-shrink-0">
-                <Bot size={16} className="text-white" />
-              </div>
-              <div className="glass-panel text-white rounded-bl-md px-4 py-2">
-                <div className="flex space-x-1">
-                  <div className="w-2 h-2 bg-white/70 rounded-full animate-bounce"></div>
-                  <div className="w-2 h-2 bg-white/70 rounded-full animate-bounce" style={{ animationDelay: '0.1s' }}></div>
-                  <div className="w-2 h-2 bg-white/70 rounded-full animate-bounce" style={{ animationDelay: '0.2s' }}></div>
-                </div>
-              </div>
-            </div>
-          )}
-
-          <div ref={messagesEndRef} />
-        </div>
-      </div>
-
-      {/* Quick Replies */}
-      {messages.length <= 1 && (
-        <div className="px-4 pb-4">
-          <div className="max-w-4xl mx-auto">
-            <p className="text-white/70 text-sm mb-3">Quick questions:</p>
-            <div className="flex flex-wrap gap-2">
-              {quickReplies.map((reply) => (
-                <button
-                  key={reply}
-                  onClick={() => handleSendMessage(reply)}
-                  className="glass-panel px-4 py-2 text-white/90 hover:text-white hover:bg-white/15 transition-colors text-sm rounded-full"
-                >
-                  {reply}
-                </button>
-              ))}
-            </div>
-          </div>
-        </div>
-      )}
-
+...
       {/* Input Area */}
       <div className="p-4 border-t border-white/10">
         <div className="max-w-4xl mx-auto">
@@ -217,6 +118,7 @@ const ChatBot = () => {
           </form>
         </div>
       </div>
+      <Footer />
     </div>
   );
 };

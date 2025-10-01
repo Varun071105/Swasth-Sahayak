@@ -11,10 +11,14 @@ serve(async (req) => {
   }
 
   try {
+    console.log('Diet planner chat function invoked');
     const { messages } = await req.json();
+    console.log('Received messages:', messages?.length);
+    
     const LOVABLE_API_KEY = Deno.env.get('LOVABLE_API_KEY');
     
     if (!LOVABLE_API_KEY) {
+      console.error('LOVABLE_API_KEY is not configured');
       throw new Error('LOVABLE_API_KEY is not configured');
     }
 
@@ -28,6 +32,7 @@ serve(async (req) => {
 
 Keep responses clear, organized, and practical. Always remind users to consult healthcare providers for serious conditions.`;
 
+    console.log('Calling Lovable AI gateway...');
     const response = await fetch('https://ai.gateway.lovable.dev/v1/chat/completions', {
       method: 'POST',
       headers: {
@@ -44,7 +49,12 @@ Keep responses clear, organized, and practical. Always remind users to consult h
       }),
     });
 
+    console.log('AI gateway response status:', response.status);
+
     if (!response.ok) {
+      const errorText = await response.text();
+      console.error('AI gateway error:', response.status, errorText);
+      
       if (response.status === 429) {
         return new Response(JSON.stringify({ error: 'Rate limit exceeded. Please try again later.' }), {
           status: 429,
@@ -57,15 +67,15 @@ Keep responses clear, organized, and practical. Always remind users to consult h
           headers: { ...corsHeaders, 'Content-Type': 'application/json' },
         });
       }
-      const errorText = await response.text();
-      console.error('AI gateway error:', response.status, errorText);
-      return new Response(JSON.stringify({ error: 'AI service error' }), {
+      
+      return new Response(JSON.stringify({ error: 'AI service error: ' + errorText }), {
         status: 500,
         headers: { ...corsHeaders, 'Content-Type': 'application/json' },
       });
     }
 
     const data = await response.json();
+    console.log('AI response received successfully');
     const assistantMessage = data.choices[0].message.content;
 
     return new Response(JSON.stringify({ message: assistantMessage }), {
