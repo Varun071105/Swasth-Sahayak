@@ -1,6 +1,5 @@
 import GlassNavbar from "@/components/GlassNavbar";
 import ScrollFloat from "@/components/ScrollFloat";
-import Footer from "@/components/Footer";
 import { ExternalLink, Download, BookOpen, Video } from "lucide-react";
 
 const Resources = () => {
@@ -60,7 +59,6 @@ const Resources = () => {
           </div>
         </div>
       </div>
-      <Footer />
     </div>
   );
 };

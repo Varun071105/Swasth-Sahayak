@@ -5,7 +5,7 @@ import { Button } from "@/components/ui/button";
 import GlassSurface from "./GlassSurface";
 import ClickSpark from "./ClickSpark";
 import { supabase } from "@/integrations/supabase/client";
-import logo from "@/assets/swasth-sahayak-logo.png";
+import logo from '@/assets/logo-main.png';
 
 const GlassNavbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -52,18 +52,21 @@ const GlassNavbar = () => {
             sparkCount={6}
             duration={400}
           >
-            <Link to="/" className="flex items-center">
+            <Link to="/" className="flex items-center gap-3 md:gap-4">
               <img 
                 src={logo} 
                 alt="Swasth Sahayak Logo" 
-                className="h-12 md:h-16 w-auto object-contain" 
+                className="h-10 md:h-12 w-auto object-contain" 
               />
+              <span className="text-xl md:text-2xl font-bold text-white">
+                Swasth Sahayak
+              </span>
             </Link>
           </ClickSpark>
 
           {/* Desktop Navigation */}
-          <div className="hidden md:flex items-center space-x-4 lg:space-x-6">
-            <div className="flex items-center space-x-4">
+          <div className="hidden lg:flex items-center space-x-4 xl:space-x-6">
+            <div className="flex items-center space-x-3 xl:space-x-4">
               {navLinks.map((link) => (
                 <ClickSpark
                   key={link.name}
@@ -141,7 +144,7 @@ const GlassNavbar = () => {
           </div>
 
           {/* Mobile Menu Button */}
-          <div className="md:hidden flex items-center space-x-1">
+          <div className="lg:hidden flex items-center space-x-1">
             <ClickSpark
               sparkColor="#71B280"
               sparkSize={6}
@@ -194,7 +197,7 @@ const GlassNavbar = () => {
 
         {/* Mobile Menu */}
         {isMenuOpen && (
-          <div className="md:hidden mt-4 pt-4 border-t border-white/20">
+          <div className="lg:hidden mt-4 pt-4 border-t border-white/20">
             <div className="flex flex-col space-y-3">
               {navLinks.map((link) => (
                 <ClickSpark

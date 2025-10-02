@@ -1,6 +1,5 @@
 import GlassNavbar from "@/components/GlassNavbar";
 import ScrollFloat from "@/components/ScrollFloat";
-import Footer from "@/components/Footer";
 import { Heart, Users, Shield, Zap } from "lucide-react";
 
 const About = () => {
@@ -48,7 +47,6 @@ const About = () => {
           </div>
         </div>
       </div>
-      <Footer />
     </div>
   );
 };
