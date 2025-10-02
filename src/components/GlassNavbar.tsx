@@ -44,7 +44,7 @@ const GlassNavbar = () => {
     >
       <nav className="w-full px-4 md:px-6 lg:px-8">
         <div className="flex items-center justify-between h-20">
-          {/* Logo */}
+          {/* Logo & Name */}
           <ClickSpark
             sparkColor="#71B280"
             sparkSize={8}
@@ -52,21 +52,21 @@ const GlassNavbar = () => {
             sparkCount={6}
             duration={400}
           >
-            <Link to="/" className="flex items-center gap-3 md:gap-4">
+            <Link to="/" className="flex items-center gap-2 md:gap-3">
               <img 
                 src={logo} 
                 alt="Swasth Sahayak Logo" 
-                className="h-10 md:h-12 w-auto object-contain" 
+                className="h-8 md:h-10 w-auto object-contain" 
               />
-              <span className="text-xl md:text-2xl font-bold text-white">
+              <span className="text-base md:text-lg lg:text-xl font-bold text-white whitespace-nowrap">
                 Swasth Sahayak
               </span>
             </Link>
           </ClickSpark>
 
           {/* Desktop Navigation */}
-          <div className="hidden lg:flex items-center space-x-4 xl:space-x-6">
-            <div className="flex items-center space-x-3 xl:space-x-4">
+          <div className="hidden lg:flex items-center space-x-2 xl:space-x-4">
+            <div className="flex items-center space-x-1 xl:space-x-2">
               {navLinks.map((link) => (
                 <ClickSpark
                   key={link.name}
@@ -78,7 +78,7 @@ const GlassNavbar = () => {
                 >
                   <Link
                     to={link.path}
-                    className={`text-white/90 hover:text-white transition-colors duration-300 font-medium px-2 py-1 rounded-lg hover:bg-white/10 text-sm ${
+                    className={`text-white/90 hover:text-white transition-colors duration-300 font-medium px-3 xl:px-4 py-2 rounded-lg hover:bg-white/10 text-sm ${
                       location.pathname === link.path ? "text-white bg-white/10" : ""
                     }`}
                   >
@@ -88,42 +88,8 @@ const GlassNavbar = () => {
               ))}
             </div>
             
-            {/* Dashboard Button */}
-            <ClickSpark
-              sparkColor="#71B280"
-              sparkSize={8}
-              sparkRadius={15}
-              sparkCount={6}
-              duration={400}
-            >
-              <Button 
-                variant="outline" 
-                size="sm" 
-                className="text-white border-white/30 hover:bg-white/10 hover:border-white/50"
-                onClick={() => user ? navigate('/dashboard') : navigate('/auth')}
-              >
-                <LayoutDashboard className="w-4 h-4 mr-2" />
-                Dashboard
-              </Button>
-            </ClickSpark>
-            
-            {/* Login/Logout Button */}
-            {!user ? (
-              <ClickSpark
-                sparkColor="#71B280"
-                sparkSize={8}
-                sparkRadius={15}
-                sparkCount={6}
-                duration={400}
-              >
-                <Link to="/auth">
-                  <Button variant="outline" size="sm" className="text-white border-white/30 hover:bg-white/10 hover:border-white/50">
-                    <LogIn className="w-4 h-4 mr-2" />
-                    Login
-                  </Button>
-                </Link>
-              </ClickSpark>
-            ) : (
+            {/* Action Buttons */}
+            <div className="flex items-center space-x-2 ml-2 xl:ml-4">
               <ClickSpark
                 sparkColor="#71B280"
                 sparkSize={8}
@@ -134,13 +100,49 @@ const GlassNavbar = () => {
                 <Button 
                   variant="outline" 
                   size="sm" 
-                  className="text-white border-white/30 hover:bg-white/10 hover:border-white/50"
-                  onClick={() => supabase.auth.signOut()}
+                  className="text-white border-white/30 hover:bg-white/10 hover:border-white/50 text-sm h-9"
+                  onClick={() => user ? navigate('/dashboard') : navigate('/auth')}
                 >
-                  Logout
+                  <LayoutDashboard className="w-4 h-4 mr-1.5" />
+                  <span className="hidden xl:inline">Dashboard</span>
                 </Button>
               </ClickSpark>
-            )}
+              
+              {!user ? (
+                <ClickSpark
+                  sparkColor="#71B280"
+                  sparkSize={8}
+                  sparkRadius={15}
+                  sparkCount={6}
+                  duration={400}
+                >
+                  <Link to="/auth">
+                    <Button variant="outline" size="sm" className="text-white border-white/30 hover:bg-white/10 hover:border-white/50 text-sm h-9">
+                      <LogIn className="w-4 h-4 mr-1.5" />
+                      <span className="hidden xl:inline">Login</span>
+                    </Button>
+                  </Link>
+                </ClickSpark>
+              ) : (
+                <ClickSpark
+                  sparkColor="#71B280"
+                  sparkSize={8}
+                  sparkRadius={15}
+                  sparkCount={6}
+                  duration={400}
+                >
+                  <Button 
+                    variant="outline" 
+                    size="sm" 
+                    className="text-white border-white/30 hover:bg-white/10 hover:border-white/50 text-sm h-9"
+                    onClick={() => supabase.auth.signOut()}
+                  >
+                    <span className="hidden xl:inline">Logout</span>
+                    <span className="xl:hidden">Exit</span>
+                  </Button>
+                </ClickSpark>
+              )}
+            </div>
           </div>
 
           {/* Mobile Menu Button */}
