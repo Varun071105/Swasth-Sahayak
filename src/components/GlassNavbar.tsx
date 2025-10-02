@@ -2,7 +2,6 @@ import { useState, useEffect } from "react";
 import { Menu, X, LogIn, LayoutDashboard } from "lucide-react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
-import GlassSurface from "./GlassSurface";
 import ClickSpark from "./ClickSpark";
 import { supabase } from "@/integrations/supabase/client";
 import logo from '@/assets/logo-main.png';
@@ -35,14 +34,8 @@ const GlassNavbar = () => {
   ];
 
   return (
-    <GlassSurface
-      width="100%"
-      height={80}
-      borderRadius={0}
-      className="glass-navbar fixed top-0 left-0 right-0 z-50"
-      backgroundOpacity={0.1}
-    >
-      <nav className="w-full px-4 md:px-6 lg:px-8">
+    <nav className="bg-slate-900/95 backdrop-blur-md border-b border-white/10 fixed top-0 left-0 right-0 z-50 shadow-lg">
+      <div className="w-full px-4 md:px-6 lg:px-8">
         <div className="flex items-center justify-between h-20">
           {/* Logo & Name */}
           <ClickSpark
@@ -199,7 +192,7 @@ const GlassNavbar = () => {
 
         {/* Mobile Menu */}
         {isMenuOpen && (
-          <div className="lg:hidden mt-4 pt-4 border-t border-white/20">
+          <div className="lg:hidden mt-4 pt-4 border-t border-white/20 pb-4">
             <div className="flex flex-col space-y-3">
               {navLinks.map((link) => (
                 <ClickSpark
@@ -245,8 +238,8 @@ const GlassNavbar = () => {
             </div>
           </div>
         )}
-      </nav>
-    </GlassSurface>
+      </div>
+    </nav>
   );
 };
 
