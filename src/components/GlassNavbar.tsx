@@ -34,9 +34,9 @@ const GlassNavbar = () => {
   ];
 
   return (
-    <nav className="bg-slate-900/95 backdrop-blur-md border-b border-white/10 fixed top-0 left-0 right-0 z-50 shadow-lg">
+    <nav className="bg-white/5 backdrop-blur-lg border-b border-white/10 fixed top-0 left-0 right-0 z-50 shadow-lg">
       <div className="w-full px-4 md:px-6 lg:px-8">
-        <div className="flex items-center justify-between h-20">
+        <div className="flex items-center justify-between py-4 md:py-5">
           {/* Logo & Name */}
           <ClickSpark
             sparkColor="#71B280"
@@ -45,13 +45,13 @@ const GlassNavbar = () => {
             sparkCount={6}
             duration={400}
           >
-            <Link to="/" className="flex items-center gap-2 md:gap-3">
+            <Link to="/" className="flex items-center gap-3 md:gap-4">
               <img 
                 src={logo} 
                 alt="Swasth Sahayak Logo" 
-                className="h-8 md:h-10 w-auto object-contain" 
+                className="h-10 md:h-12 lg:h-14 w-auto object-contain" 
               />
-              <span className="text-base md:text-lg lg:text-xl font-bold text-white whitespace-nowrap">
+              <span className="text-lg md:text-xl lg:text-2xl font-bold text-white whitespace-nowrap">
                 Swasth Sahayak
               </span>
             </Link>
