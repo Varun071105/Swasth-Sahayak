@@ -9,6 +9,7 @@ import ChatBot from "./pages/ChatBot";
 import Resources from "./pages/Resources";
 import Auth from "./pages/Auth";
 import Dashboard from "./pages/Dashboard";
+import Vaccinations from "./pages/Vaccinations";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -26,6 +27,7 @@ const App = () => (
           <Route path="/resources" element={<Resources />} />
           <Route path="/auth" element={<Auth />} />
           <Route path="/dashboard" element={<Dashboard />} />
+          <Route path="/vaccinations" element={<Vaccinations />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>

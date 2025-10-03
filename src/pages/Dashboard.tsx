@@ -42,7 +42,7 @@ const Dashboard = () => {
       description: "Track and manage your vaccination appointments and reminders",
       icon: Calendar,
       color: "from-blue-500 to-blue-600",
-      action: () => console.log("Vaccination feature coming soon")
+      action: () => navigate("/vaccinations")
     },
     {
       title: "Personalized Health & Diet Planner",
