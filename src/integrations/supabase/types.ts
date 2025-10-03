@@ -14,7 +14,161 @@ export type Database = {
   }
   public: {
     Tables: {
-      [_ in never]: never
+      profiles: {
+        Row: {
+          age: number | null
+          created_at: string | null
+          full_name: string | null
+          gender: string | null
+          id: string
+          medical_history: string | null
+          phone_number: string | null
+          updated_at: string | null
+        }
+        Insert: {
+          age?: number | null
+          created_at?: string | null
+          full_name?: string | null
+          gender?: string | null
+          id: string
+          medical_history?: string | null
+          phone_number?: string | null
+          updated_at?: string | null
+        }
+        Update: {
+          age?: number | null
+          created_at?: string | null
+          full_name?: string | null
+          gender?: string | null
+          id?: string
+          medical_history?: string | null
+          phone_number?: string | null
+          updated_at?: string | null
+        }
+        Relationships: []
+      }
+      vaccination_records: {
+        Row: {
+          created_at: string | null
+          date_taken: string | null
+          dose_number: number | null
+          id: string
+          next_due_date: string | null
+          notes: string | null
+          reminder_sent: boolean | null
+          status: Database["public"]["Enums"]["vaccination_status"] | null
+          total_doses: number | null
+          updated_at: string | null
+          user_id: string
+          vaccine_name: string
+        }
+        Insert: {
+          created_at?: string | null
+          date_taken?: string | null
+          dose_number?: number | null
+          id?: string
+          next_due_date?: string | null
+          notes?: string | null
+          reminder_sent?: boolean | null
+          status?: Database["public"]["Enums"]["vaccination_status"] | null
+          total_doses?: number | null
+          updated_at?: string | null
+          user_id: string
+          vaccine_name: string
+        }
+        Update: {
+          created_at?: string | null
+          date_taken?: string | null
+          dose_number?: number | null
+          id?: string
+          next_due_date?: string | null
+          notes?: string | null
+          reminder_sent?: boolean | null
+          status?: Database["public"]["Enums"]["vaccination_status"] | null
+          total_doses?: number | null
+          updated_at?: string | null
+          user_id?: string
+          vaccine_name?: string
+        }
+        Relationships: []
+      }
+      vaccination_reminders: {
+        Row: {
+          created_at: string | null
+          id: string
+          reminder_date: string
+          reminder_type: string
+          sent: boolean | null
+          sent_at: string | null
+          user_id: string
+          vaccination_record_id: string
+        }
+        Insert: {
+          created_at?: string | null
+          id?: string
+          reminder_date: string
+          reminder_type: string
+          sent?: boolean | null
+          sent_at?: string | null
+          user_id: string
+          vaccination_record_id: string
+        }
+        Update: {
+          created_at?: string | null
+          id?: string
+          reminder_date?: string
+          reminder_type?: string
+          sent?: boolean | null
+          sent_at?: string | null
+          user_id?: string
+          vaccination_record_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "vaccination_reminders_vaccination_record_id_fkey"
+            columns: ["vaccination_record_id"]
+            isOneToOne: false
+            referencedRelation: "vaccination_records"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      vaccine_templates: {
+        Row: {
+          age_group: string | null
+          category: string
+          created_at: string | null
+          description: string | null
+          id: string
+          interval_days: number | null
+          is_active: boolean | null
+          total_doses: number | null
+          vaccine_name: string
+        }
+        Insert: {
+          age_group?: string | null
+          category: string
+          created_at?: string | null
+          description?: string | null
+          id?: string
+          interval_days?: number | null
+          is_active?: boolean | null
+          total_doses?: number | null
+          vaccine_name: string
+        }
+        Update: {
+          age_group?: string | null
+          category?: string
+          created_at?: string | null
+          description?: string | null
+          id?: string
+          interval_days?: number | null
+          is_active?: boolean | null
+          total_doses?: number | null
+          vaccine_name?: string
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
@@ -23,7 +177,7 @@ export type Database = {
       [_ in never]: never
     }
     Enums: {
-      [_ in never]: never
+      vaccination_status: "completed" | "upcoming" | "overdue"
     }
     CompositeTypes: {
       [_ in never]: never
@@ -150,6 +304,8 @@ export type CompositeTypes<
 
 export const Constants = {
   public: {
-    Enums: {},
+    Enums: {
+      vaccination_status: ["completed", "upcoming", "overdue"],
+    },
   },
 } as const
