@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { Menu, X, LogIn, LayoutDashboard } from "lucide-react";
+import { Menu, X, LogIn, LayoutDashboard, User } from "lucide-react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import ClickSpark from "./ClickSpark";
@@ -83,23 +83,45 @@ const GlassNavbar = () => {
             
             {/* Action Buttons */}
             <div className="flex items-center space-x-2 ml-2 xl:ml-4">
-              <ClickSpark
-                sparkColor="#71B280"
-                sparkSize={8}
-                sparkRadius={15}
-                sparkCount={6}
-                duration={400}
-              >
-                <Button 
-                  variant="outline" 
-                  size="sm" 
-                  className="text-white border-white/30 hover:bg-white/10 hover:border-white/50 text-sm h-9"
-                  onClick={() => user ? navigate('/dashboard') : navigate('/auth')}
-                >
-                  <LayoutDashboard className="w-4 h-4 mr-1.5" />
-                  <span className="hidden xl:inline">Dashboard</span>
-                </Button>
-              </ClickSpark>
+              {user && (
+                <>
+                  <ClickSpark
+                    sparkColor="#71B280"
+                    sparkSize={8}
+                    sparkRadius={15}
+                    sparkCount={6}
+                    duration={400}
+                  >
+                    <Button 
+                      variant="outline" 
+                      size="sm" 
+                      className="text-white border-white/30 hover:bg-white/10 hover:border-white/50 text-sm h-9"
+                      onClick={() => navigate('/dashboard')}
+                    >
+                      <LayoutDashboard className="w-4 h-4 mr-1.5" />
+                      <span className="hidden xl:inline">Dashboard</span>
+                    </Button>
+                  </ClickSpark>
+                  
+                  <ClickSpark
+                    sparkColor="#71B280"
+                    sparkSize={8}
+                    sparkRadius={15}
+                    sparkCount={6}
+                    duration={400}
+                  >
+                    <Button 
+                      variant="outline" 
+                      size="sm" 
+                      className="text-white border-white/30 hover:bg-white/10 hover:border-white/50 text-sm h-9"
+                      onClick={() => navigate('/profile')}
+                    >
+                      <User className="w-4 h-4 mr-1.5" />
+                      <span className="hidden xl:inline">Profile</span>
+                    </Button>
+                  </ClickSpark>
+                </>
+              )}
               
               {!user ? (
                 <ClickSpark
