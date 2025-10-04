@@ -118,30 +118,37 @@ export default function Profile() {
     <div className="min-h-screen bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900">
       <GlassNavbar />
       
-      <main className="pt-24 pb-12 px-4 md:px-6 lg:px-8">
-        <div className="max-w-3xl mx-auto">
-          <div className="mb-8">
-            <h1 className="text-3xl md:text-4xl font-bold text-white mb-2">
+      <main className="pt-28 pb-16 px-4 md:px-6 lg:px-8">
+        <div className="max-w-4xl mx-auto space-y-8">
+          {/* Header Section */}
+          <div className="py-6">
+            <h1 className="text-4xl md:text-5xl font-bold text-white mb-4">
               Profile Settings
             </h1>
-            <p className="text-slate-300">
-              Manage your personal information and preferences
+            <p className="text-xl text-slate-300">
+              Manage your personal information and health preferences
             </p>
           </div>
 
+          {/* Divider */}
+          <div className="border-t border-white/10"></div>
+
+          {/* Profile Form Card */}
           <Card className="bg-white/5 border-white/10 backdrop-blur-sm">
-            <CardHeader>
-              <CardTitle className="text-white flex items-center gap-2">
-                <User className="w-5 h-5" />
+            <CardHeader className="pb-6">
+              <CardTitle className="text-white text-3xl flex items-center gap-3">
+                <div className="p-3 bg-primary/20 rounded-lg">
+                  <User className="w-7 h-7 text-primary" />
+                </div>
                 Personal Information
               </CardTitle>
-              <CardDescription className="text-slate-300">
-                Update your profile details to personalize your health tracking experience
+              <CardDescription className="text-slate-300 text-lg mt-3">
+                Update your profile details to personalize your health tracking experience and receive tailored recommendations
               </CardDescription>
             </CardHeader>
             
-            <CardContent>
-              <form onSubmit={handleSave} className="space-y-6">
+            <CardContent className="pt-6">
+              <form onSubmit={handleSave} className="space-y-8">
                 <div className="space-y-2">
                   <Label htmlFor="full_name" className="text-white flex items-center gap-2">
                     <User className="w-4 h-4" />
@@ -225,11 +232,11 @@ export default function Profile() {
                   />
                 </div>
 
-                <div className="flex gap-3 pt-4">
+                <div className="flex gap-4 pt-6">
                   <Button 
                     type="submit" 
                     disabled={saving}
-                    className="flex-1 bg-primary hover:bg-primary/90"
+                    className="flex-1 bg-primary hover:bg-primary/90 h-12 text-base"
                   >
                     {saving ? 'Saving...' : 'Save Changes'}
                   </Button>
@@ -237,7 +244,7 @@ export default function Profile() {
                     type="button" 
                     variant="outline"
                     onClick={() => navigate('/dashboard')}
-                    className="border-white/10 hover:bg-white/5"
+                    className="border-white/10 hover:bg-white/5 h-12 px-8 text-base"
                   >
                     Cancel
                   </Button>
@@ -246,22 +253,25 @@ export default function Profile() {
             </CardContent>
           </Card>
 
-          <Card className="mt-6 bg-blue-500/10 border-blue-500/20 backdrop-blur-sm">
-            <CardContent className="pt-6">
-              <h3 className="text-white font-semibold mb-2 flex items-center gap-2">
-                <Phone className="w-4 h-4" />
+          {/* WhatsApp Info Card */}
+          <Card className="bg-blue-500/10 border-blue-500/20 backdrop-blur-sm">
+            <CardContent className="pt-8 pb-8">
+              <h3 className="text-white font-bold text-2xl mb-4 flex items-center gap-3">
+                <div className="p-2 bg-blue-500/20 rounded-lg">
+                  <Phone className="w-6 h-6 text-blue-400" />
+                </div>
                 WhatsApp Vaccination Reminders
               </h3>
-              <p className="text-slate-300 text-sm">
+              <p className="text-slate-300 text-base mb-4">
                 Once you add your phone number, you'll receive automated WhatsApp reminders:
               </p>
-              <ul className="list-disc list-inside text-slate-300 text-sm mt-2 space-y-1 ml-4">
+              <ul className="list-disc list-inside text-slate-300 text-base space-y-2 ml-6">
                 <li>3 days before your vaccination due date</li>
                 <li>1 day before your vaccination due date</li>
                 <li>On the day of your vaccination</li>
               </ul>
-              <p className="text-slate-400 text-xs mt-3">
-                Note: WhatsApp integration requires administrator setup. Contact support if you're not receiving reminders.
+              <p className="text-slate-400 text-sm mt-6 p-4 bg-slate-800/50 rounded-lg">
+                <strong>Note:</strong> WhatsApp integration requires administrator setup. Contact support if you're not receiving reminders.
               </p>
             </CardContent>
           </Card>

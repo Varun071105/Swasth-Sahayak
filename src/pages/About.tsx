@@ -1,27 +1,27 @@
 import GlassNavbar from "@/components/GlassNavbar";
-import { Heart, Users, Shield, Zap } from "lucide-react";
+import { Heart, Users, Shield, Zap, Target } from "lucide-react";
 
 const About = () => {
   const values = [
     {
-      icon: <Heart size={24} />,
+      icon: <Heart size={28} />,
       title: "Compassionate Care",
-      description: "We believe everyone deserves access to reliable health information and support."
+      description: "We believe everyone deserves access to reliable health information and support, delivered with empathy and understanding."
     },
     {
-      icon: <Users size={24} />,
+      icon: <Users size={28} />,
       title: "Community Focused",
-      description: "Building a supportive community where health and wellness knowledge is shared."
+      description: "Building a supportive community where health and wellness knowledge is shared and everyone can thrive together."
     },
     {
-      icon: <Shield size={24} />,
+      icon: <Shield size={28} />,
       title: "Trusted Information",
-      description: "All our content is reviewed and based on evidence-based medical practices."
+      description: "All our content is reviewed and based on evidence-based medical practices from credible sources."
     },
     {
-      icon: <Zap size={24} />,
+      icon: <Zap size={28} />,
       title: "Instant Access",
-      description: "Get immediate access to health resources and AI-powered assistance 24/7."
+      description: "Get immediate access to health resources and AI-powered assistance 24/7, whenever you need it most."
     }
   ];
 
@@ -29,67 +29,107 @@ const About = () => {
     <div className="min-h-screen bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900">
       <GlassNavbar />
       
-      <div className="pt-24 px-4 pb-12">
-        <div className="max-w-4xl mx-auto">
+      <main className="pt-28 pb-16 px-4 md:px-6 lg:px-8">
+        <div className="max-w-7xl mx-auto space-y-8">
           {/* Hero Section */}
-          <div className="text-center mb-12">
-            <h1 className="text-4xl md:text-5xl font-bold text-white mb-4">
+          <div className="text-center py-8">
+            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6">
               About Swasth Sahayak
             </h1>
-            <p className="text-xl text-white/80 max-w-2xl mx-auto">
+            <p className="text-xl md:text-2xl text-slate-300 max-w-3xl mx-auto leading-relaxed">
               Your trusted companion in health and wellness, powered by advanced AI technology
             </p>
           </div>
 
-          {/* Mission Statement */}
-          <div className="glass-panel bg-gradient-to-br from-green-500/10 to-blue-500/10 border-green-400/30 p-8 mb-12">
-            <h2 className="text-3xl font-bold text-white mb-4">Our Mission</h2>
-            <p className="text-white/80 text-lg leading-relaxed">
-              Swasth Sahayak is dedicated to making quality health information accessible to everyone. 
-              We combine cutting-edge AI technology with reliable medical knowledge to provide personalized 
-              health guidance, diet planning, and wellness support. Our platform empowers individuals to 
-              make informed decisions about their health and well-being.
-            </p>
+          {/* Divider */}
+          <div className="border-t border-white/10"></div>
+
+          {/* Mission & Vision */}
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 py-6">
+            <div className="glass-panel bg-gradient-to-br from-green-500/10 to-blue-500/10 border-green-400/30 p-8 hover:scale-[1.02] transition-transform">
+              <div className="flex items-center gap-3 mb-6">
+                <div className="p-3 bg-green-500/20 rounded-xl">
+                  <Heart className="w-8 h-8 text-green-400" />
+                </div>
+                <h2 className="text-3xl font-bold text-white">Our Mission</h2>
+              </div>
+              <p className="text-slate-300 text-lg leading-relaxed">
+                Swasth Sahayak is dedicated to making quality health information accessible to everyone. 
+                We combine cutting-edge AI technology with reliable medical knowledge to provide personalized 
+                health guidance, diet planning, and wellness support. Our platform empowers individuals to 
+                make informed decisions about their health and well-being.
+              </p>
+            </div>
+
+            <div className="glass-panel bg-gradient-to-br from-blue-500/10 to-purple-500/10 border-blue-400/30 p-8 hover:scale-[1.02] transition-transform">
+              <div className="flex items-center gap-3 mb-6">
+                <div className="p-3 bg-blue-500/20 rounded-xl">
+                  <Target className="w-8 h-8 text-blue-400" />
+                </div>
+                <h2 className="text-3xl font-bold text-white">Our Vision</h2>
+              </div>
+              <p className="text-slate-300 text-lg leading-relaxed">
+                A world where everyone has access to intelligent health guidance and support, 
+                enabling better health outcomes and improved quality of life through the power of
+                artificial intelligence and personalized care. We envision a future where technology
+                bridges healthcare gaps and empowers every individual.
+              </p>
+            </div>
           </div>
+
+          {/* Divider */}
+          <div className="border-t border-white/10"></div>
 
           {/* Core Values */}
-          <h2 className="text-3xl font-bold text-white mb-8 text-center">Our Core Values</h2>
-          <div className="grid md:grid-cols-2 gap-6 mb-12">
-            {values.map((value, index) => (
-              <div 
-                key={index}
-                className="glass-panel bg-slate-800/50 border-white/10 p-6 hover:border-green-400/30 transition-all"
-              >
-                <div className="flex items-start gap-4">
-                  <div className="w-12 h-12 rounded-full bg-gradient-to-br from-green-500 to-blue-500 flex items-center justify-center flex-shrink-0">
-                    {value.icon}
-                  </div>
-                  <div>
-                    <h3 className="text-xl font-semibold text-white mb-2">
-                      {value.title}
-                    </h3>
-                    <p className="text-white/70">
-                      {value.description}
-                    </p>
+          <div className="py-6 space-y-8">
+            <div className="text-center">
+              <h2 className="text-4xl font-bold text-white mb-4">Our Core Values</h2>
+              <p className="text-lg text-slate-300 max-w-2xl mx-auto">
+                The principles that guide everything we do at Swasth Sahayak
+              </p>
+            </div>
+
+            <div className="grid md:grid-cols-2 gap-8">
+              {values.map((value, index) => (
+                <div 
+                  key={index}
+                  className="glass-panel bg-slate-800/50 border-white/10 p-8 hover:border-green-400/30 transition-all hover:scale-[1.02] group"
+                >
+                  <div className="flex items-start gap-5">
+                    <div className="w-16 h-16 rounded-xl bg-gradient-to-br from-green-500 to-blue-500 flex items-center justify-center flex-shrink-0 group-hover:scale-110 transition-transform">
+                      {value.icon}
+                    </div>
+                    <div>
+                      <h3 className="text-2xl font-bold text-white mb-3">
+                        {value.title}
+                      </h3>
+                      <p className="text-slate-300 text-base leading-relaxed">
+                        {value.description}
+                      </p>
+                    </div>
                   </div>
                 </div>
-              </div>
-            ))}
+              ))}
+            </div>
           </div>
 
-          {/* Important Notice */}
-          <div className="glass-panel bg-orange-500/20 border border-orange-400/30 p-6 text-center">
-            <h3 className="text-2xl font-semibold text-orange-100 mb-3">
+          {/* Divider */}
+          <div className="border-t border-white/10"></div>
+
+          {/* Medical Disclaimer */}
+          <div className="glass-panel bg-orange-500/20 border border-orange-400/30 p-8 text-center">
+            <h3 className="text-3xl font-bold text-orange-100 mb-4">
               Medical Disclaimer
             </h3>
-            <p className="text-orange-100/90 leading-relaxed">
+            <p className="text-orange-100/90 text-lg leading-relaxed max-w-4xl mx-auto">
               Swasth Sahayak provides general health information for educational purposes only. 
               Our AI assistant and resources are not intended to replace professional medical advice, 
               diagnosis, or treatment. Always consult with qualified healthcare providers for medical concerns.
+              In case of emergency, please call your local emergency services immediately.
             </p>
           </div>
         </div>
-      </div>
+      </main>
     </div>
   );
 };

@@ -87,13 +87,13 @@ const ChatBot = () => {
   return (
     <div className="min-h-screen flex flex-col bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900">
       {/* Header */}
-      <div className="glass-panel sticky top-0 z-10 p-4 border-b border-white/10">
+      <div className="glass-panel sticky top-0 z-10 p-4 md:p-6 border-b border-white/10 mt-20">
         <div className="max-w-4xl mx-auto flex items-center justify-between">
           <Link to="/" className="flex items-center gap-2 text-white hover:text-green-400 transition-colors">
             <ArrowLeft size={20} />
             <span className="hidden sm:inline">Back to Home</span>
           </Link>
-          <h1 className="text-lg sm:text-xl font-bold text-white">Health Assistant</h1>
+          <h1 className="text-xl md:text-2xl font-bold text-white">Health Assistant</h1>
           <div className="w-20" /> {/* Spacer for centering */}
         </div>
       </div>
