@@ -121,9 +121,9 @@ const Dashboard = () => {
             <Button 
               variant="outline" 
               className="bg-white/10 text-white border-white/20 hover:bg-white/20 whitespace-nowrap"
-              onClick={() => console.log("Vaccination feature coming soon")}
+              onClick={() => navigate("/vaccinations")}
             >
-              Coming Soon
+              Start Now
             </Button>
           </div>
         </ScrollStackItem>
