@@ -21,23 +21,23 @@ const HeroSection = () => {
       </div>
       
       {/* Liquid Ether Background */}
-      <div className="absolute inset-0 z-0 opacity-30">
+      <div className="absolute inset-0 z-0 opacity-20 mix-blend-overlay">
         <LiquidEther
-          colors={['#134E5E', '#71B280']}
-          mouseForce={25}
-          cursorSize={150}
-          isViscous={false}
-          viscous={30}
+          colors={['#71B280', '#134E5E', '#2D5F3F']}
+          mouseForce={20}
+          cursorSize={120}
+          isViscous={true}
+          viscous={40}
           iterationsViscous={32}
           iterationsPoisson={32}
-          resolution={0.6}
+          resolution={0.5}
           isBounce={false}
           autoDemo={true}
-          autoSpeed={0.3}
-          autoIntensity={1.8}
-          takeoverDuration={0.4}
-          autoResumeDelay={4000}
-          autoRampDuration={0.8}
+          autoSpeed={0.2}
+          autoIntensity={1.2}
+          takeoverDuration={0.6}
+          autoResumeDelay={5000}
+          autoRampDuration={1.0}
         />
       </div>
       <div className="text-center max-w-4xl mx-auto relative z-10 px-4">

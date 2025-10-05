@@ -124,21 +124,6 @@ const About = () => {
             </div>
           </div>
 
-          {/* Divider */}
-          <div className="border-t border-white/10"></div>
-
-          {/* Medical Disclaimer */}
-          <div className="glass-panel bg-orange-500/20 border border-orange-400/30 p-8 text-center">
-            <h3 className="text-3xl font-bold text-orange-100 mb-4">
-              Medical Disclaimer
-            </h3>
-            <p className="text-orange-100/90 text-lg leading-relaxed max-w-4xl mx-auto">
-              Swasth Sahayak provides general health information for educational purposes only. 
-              Our AI assistant and resources are not intended to replace professional medical advice, 
-              diagnosis, or treatment. Always consult with qualified healthcare providers for medical concerns.
-              In case of emergency, please call your local emergency services immediately.
-            </p>
-          </div>
         </div>
       </main>
     </div>

@@ -115,20 +115,6 @@ const Resources = () => {
             </div>
           </div>
 
-          {/* Divider */}
-          <div className="border-t border-white/10"></div>
-
-          {/* Disclaimer */}
-          <div className="glass-panel bg-orange-500/20 border border-orange-400/30 p-8 text-center">
-            <h3 className="text-2xl font-bold text-orange-100 mb-4">
-              Important Information
-            </h3>
-            <p className="text-orange-100/90 text-lg leading-relaxed max-w-3xl mx-auto">
-              All resources are for educational purposes only. 
-              Always consult healthcare professionals for medical advice and treatment.
-              These resources are meant to supplement, not replace, professional medical guidance.
-            </p>
-          </div>
         </div>
       </main>
     </div>
