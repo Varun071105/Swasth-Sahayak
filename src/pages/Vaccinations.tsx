@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { supabase } from '@/integrations/supabase/client';
 import GlassNavbar from '@/components/GlassNavbar';
+import ClickSpark from '@/components/ClickSpark';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Plus, Calendar, AlertCircle, CheckCircle2, Clock } from 'lucide-react';
@@ -80,13 +81,21 @@ export default function Vaccinations() {
                 Track and manage your vaccination records, get reminders, and stay up to date with your health
               </p>
             </div>
-            <Button 
-              onClick={() => setShowAddDialog(true)}
-              className="bg-primary hover:bg-primary/90 h-12 px-6 text-base"
+            <ClickSpark
+              sparkColor="#71B280"
+              sparkSize={10}
+              sparkRadius={20}
+              sparkCount={8}
+              duration={500}
             >
-              <Plus className="w-5 h-5 mr-2" />
-              Add Vaccine Record
-            </Button>
+              <Button 
+                onClick={() => setShowAddDialog(true)}
+                className="bg-primary hover:bg-primary/90 h-12 px-6 text-base"
+              >
+                <Plus className="w-5 h-5 mr-2" />
+                Add Vaccine Record
+              </Button>
+            </ClickSpark>
           </div>
 
           {/* Divider */}

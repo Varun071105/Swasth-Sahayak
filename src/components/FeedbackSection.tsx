@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Star, Send } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useToast } from "@/components/ui/use-toast";
+import ClickSpark from "./ClickSpark";
 import ScrollFloat from "./ScrollFloat";
 
 const FeedbackSection = () => {
@@ -70,23 +71,31 @@ const FeedbackSection = () => {
               </label>
               <div className="flex justify-center gap-2">
                 {[1, 2, 3, 4, 5].map((star) => (
-                  <button
+                  <ClickSpark
                     key={star}
-                    type="button"
-                    onClick={() => setRating(star)}
-                    onMouseEnter={() => setHoveredRating(star)}
-                    onMouseLeave={() => setHoveredRating(0)}
-                    className="transition-transform hover:scale-110"
+                    sparkColor="#FFD700"
+                    sparkSize={10}
+                    sparkRadius={18}
+                    sparkCount={8}
+                    duration={400}
                   >
-                    <Star
-                      size={40}
-                      className={`transition-colors ${
-                        star <= (hoveredRating || rating)
-                          ? "fill-yellow-400 text-yellow-400"
-                          : "text-white/30"
-                      }`}
-                    />
-                  </button>
+                    <button
+                      type="button"
+                      onClick={() => setRating(star)}
+                      onMouseEnter={() => setHoveredRating(star)}
+                      onMouseLeave={() => setHoveredRating(0)}
+                      className="transition-transform hover:scale-110"
+                    >
+                      <Star
+                        size={40}
+                        className={`transition-colors ${
+                          star <= (hoveredRating || rating)
+                            ? "fill-yellow-400 text-yellow-400"
+                            : "text-white/30"
+                        }`}
+                      />
+                    </button>
+                  </ClickSpark>
                 ))}
               </div>
               {rating > 0 && (
@@ -118,23 +127,31 @@ const FeedbackSection = () => {
             </div>
 
             {/* Submit Button */}
-            <Button
-              type="submit"
-              disabled={isSubmitting}
-              className="w-full bg-gradient-to-r from-green-500 to-green-600 hover:from-green-600 hover:to-green-700 text-white py-6 text-lg font-semibold"
+            <ClickSpark
+              sparkColor="#71B280"
+              sparkSize={12}
+              sparkRadius={22}
+              sparkCount={10}
+              duration={600}
             >
-              {isSubmitting ? (
-                <div className="flex items-center gap-2">
-                  <div className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin" />
-                  Submitting...
-                </div>
-              ) : (
-                <div className="flex items-center gap-2">
-                  <Send size={20} />
-                  Submit Feedback
-                </div>
-              )}
-            </Button>
+              <Button
+                type="submit"
+                disabled={isSubmitting}
+                className="w-full bg-gradient-to-r from-green-500 to-green-600 hover:from-green-600 hover:to-green-700 text-white py-6 text-lg font-semibold"
+              >
+                {isSubmitting ? (
+                  <div className="flex items-center gap-2">
+                    <div className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin" />
+                    Submitting...
+                  </div>
+                ) : (
+                  <div className="flex items-center gap-2">
+                    <Send size={20} />
+                    Submit Feedback
+                  </div>
+                )}
+              </Button>
+            </ClickSpark>
           </form>
         </div>
       </div>

@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { supabase } from '@/integrations/supabase/client';
 import GlassNavbar from '@/components/GlassNavbar';
+import ClickSpark from '@/components/ClickSpark';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -233,21 +234,37 @@ export default function Profile() {
                 </div>
 
                 <div className="flex gap-4 pt-6">
-                  <Button 
-                    type="submit" 
-                    disabled={saving}
-                    className="flex-1 bg-primary hover:bg-primary/90 h-12 text-base"
+                  <ClickSpark
+                    sparkColor="#71B280"
+                    sparkSize={10}
+                    sparkRadius={20}
+                    sparkCount={8}
+                    duration={500}
                   >
-                    {saving ? 'Saving...' : 'Save Changes'}
-                  </Button>
-                  <Button 
-                    type="button" 
-                    variant="outline"
-                    onClick={() => navigate('/dashboard')}
-                    className="border-white/10 hover:bg-white/5 h-12 px-8 text-base"
+                    <Button 
+                      type="submit" 
+                      disabled={saving}
+                      className="flex-1 bg-primary hover:bg-primary/90 h-12 text-base"
+                    >
+                      {saving ? 'Saving...' : 'Save Changes'}
+                    </Button>
+                  </ClickSpark>
+                  <ClickSpark
+                    sparkColor="#71B280"
+                    sparkSize={8}
+                    sparkRadius={15}
+                    sparkCount={6}
+                    duration={400}
                   >
-                    Cancel
-                  </Button>
+                    <Button 
+                      type="button" 
+                      variant="outline"
+                      onClick={() => navigate('/dashboard')}
+                      className="border-white/10 hover:bg-white/5 h-12 px-8 text-base"
+                    >
+                      Cancel
+                    </Button>
+                  </ClickSpark>
                 </div>
               </form>
             </CardContent>

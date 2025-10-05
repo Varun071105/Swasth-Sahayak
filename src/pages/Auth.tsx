@@ -123,10 +123,18 @@ const Auth = () => {
     <div className="min-h-screen bg-gradient-to-br from-primary/20 via-background to-secondary/20 flex items-center justify-center p-4">
       <div className="w-full max-w-md">
         <div className="text-center mb-8">
-          <Link to="/" className="inline-flex items-center space-x-3 mb-4">
-            <img src={logo} alt="Swasth-Sahaya Logo" className="w-12 h-12" />
-            <span className="text-2xl font-bold text-foreground">Swasth-Sahaya</span>
-          </Link>
+          <ClickSpark
+            sparkColor="#71B280"
+            sparkSize={8}
+            sparkRadius={15}
+            sparkCount={6}
+            duration={400}
+          >
+            <Link to="/" className="inline-flex items-center space-x-3 mb-4">
+              <img src={logo} alt="Swasth Sahayak Logo" className="w-12 h-12" />
+              <span className="text-2xl font-bold text-foreground">Swasth Sahayak</span>
+            </Link>
+          </ClickSpark>
           <p className="text-muted-foreground">Your health companion</p>
         </div>
 

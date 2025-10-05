@@ -5,6 +5,7 @@ import { User } from "@supabase/supabase-js";
 import GlassNavbar from "@/components/GlassNavbar";
 import ScrollStack, { ScrollStackItem } from "@/components/ScrollStack";
 import DietPlannerChat from "@/components/DietPlannerChat";
+import ClickSpark from "@/components/ClickSpark";
 import { Calendar, Users, FileText, Stethoscope, Bot } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
@@ -118,13 +119,21 @@ const Dashboard = () => {
                 <p className="text-white/70 text-lg">Track and manage your vaccination appointments and reminders</p>
               </div>
             </div>
-            <Button 
-              variant="outline" 
-              className="bg-white/10 text-white border-white/20 hover:bg-white/20 whitespace-nowrap"
-              onClick={() => navigate("/vaccinations")}
+            <ClickSpark
+              sparkColor="#71B280"
+              sparkSize={8}
+              sparkRadius={15}
+              sparkCount={6}
+              duration={400}
             >
-              Start Now
-            </Button>
+              <Button 
+                variant="outline" 
+                className="bg-white/10 text-white border-white/20 hover:bg-white/20 whitespace-nowrap"
+                onClick={() => navigate("/vaccinations")}
+              >
+                Start Now
+              </Button>
+            </ClickSpark>
           </div>
         </ScrollStackItem>
 
@@ -140,13 +149,21 @@ const Dashboard = () => {
                 <p className="text-white/70 text-lg">Get customized health and nutrition plans based on your profile</p>
               </div>
             </div>
-            <Button 
-              variant="outline" 
-              className="bg-white/10 text-white border-white/20 hover:bg-white/20 whitespace-nowrap"
-              onClick={() => setShowDietPlanner(true)}
+            <ClickSpark
+              sparkColor="#71B280"
+              sparkSize={8}
+              sparkRadius={15}
+              sparkCount={6}
+              duration={400}
             >
-              Start Planning
-            </Button>
+              <Button 
+                variant="outline" 
+                className="bg-white/10 text-white border-white/20 hover:bg-white/20 whitespace-nowrap"
+                onClick={() => setShowDietPlanner(true)}
+              >
+                Start Planning
+              </Button>
+            </ClickSpark>
           </div>
         </ScrollStackItem>
 
@@ -162,13 +179,21 @@ const Dashboard = () => {
                 <p className="text-white/70 text-lg">Upload and analyze your medical reports with AI assistance</p>
               </div>
             </div>
-            <Button 
-              variant="outline" 
-              className="bg-white/10 text-white border-white/20 hover:bg-white/20 whitespace-nowrap"
-              onClick={() => console.log("Report analyzer feature coming soon")}
+            <ClickSpark
+              sparkColor="#71B280"
+              sparkSize={8}
+              sparkRadius={15}
+              sparkCount={6}
+              duration={400}
             >
-              Coming Soon
-            </Button>
+              <Button 
+                variant="outline" 
+                className="bg-white/10 text-white border-white/20 hover:bg-white/20 whitespace-nowrap"
+                onClick={() => console.log("Report analyzer feature coming soon")}
+              >
+                Coming Soon
+              </Button>
+            </ClickSpark>
           </div>
         </ScrollStackItem>
 
@@ -184,13 +209,21 @@ const Dashboard = () => {
                 <p className="text-white/70 text-lg">Get insights about potential conditions based on your symptoms</p>
               </div>
             </div>
-            <Button 
-              variant="outline" 
-              className="bg-white/10 text-white border-white/20 hover:bg-white/20 whitespace-nowrap"
-              onClick={() => console.log("Symptom analyzer feature coming soon")}
+            <ClickSpark
+              sparkColor="#71B280"
+              sparkSize={8}
+              sparkRadius={15}
+              sparkCount={6}
+              duration={400}
             >
-              Coming Soon
-            </Button>
+              <Button 
+                variant="outline" 
+                className="bg-white/10 text-white border-white/20 hover:bg-white/20 whitespace-nowrap"
+                onClick={() => console.log("Symptom analyzer feature coming soon")}
+              >
+                Coming Soon
+              </Button>
+            </ClickSpark>
           </div>
         </ScrollStackItem>
 
@@ -206,13 +239,21 @@ const Dashboard = () => {
                 <p className="text-white/70 text-lg">Chat with our AI health assistant for instant support</p>
               </div>
             </div>
-            <Button 
-              variant="outline" 
-              className="bg-white/10 text-white border-white/20 hover:bg-white/20 whitespace-nowrap"
-              onClick={() => navigate("/chatbot")}
+            <ClickSpark
+              sparkColor="#71B280"
+              sparkSize={8}
+              sparkRadius={15}
+              sparkCount={6}
+              duration={400}
             >
-              Start Chat
-            </Button>
+              <Button 
+                variant="outline" 
+                className="bg-white/10 text-white border-white/20 hover:bg-white/20 whitespace-nowrap"
+                onClick={() => navigate("/chatbot")}
+              >
+                Start Chat
+              </Button>
+            </ClickSpark>
           </div>
         </ScrollStackItem>
       </ScrollStack>
