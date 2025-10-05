@@ -1,5 +1,6 @@
 import GlassNavbar from "@/components/GlassNavbar";
 import { Heart, Users, Shield, Zap, Target } from "lucide-react";
+import aboutHeader from "@/assets/about-header.jpg";
 
 const About = () => {
   const values = [
@@ -31,29 +32,39 @@ const About = () => {
       
       <main className="pt-28 pb-16 px-4 md:px-6 lg:px-8">
         <div className="max-w-7xl mx-auto space-y-8">
-          {/* Hero Section */}
-          <div className="text-center py-8">
-            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6">
-              About Swasth Sahayak
-            </h1>
-            <p className="text-xl md:text-2xl text-slate-300 max-w-3xl mx-auto leading-relaxed">
-              Your trusted companion in health and wellness, powered by advanced AI technology
-            </p>
+          {/* Hero Section with Image */}
+          <div className="relative rounded-2xl overflow-hidden">
+            <div className="absolute inset-0">
+              <img 
+                src={aboutHeader} 
+                alt="Healthcare Professionals" 
+                className="w-full h-full object-cover"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-slate-900 via-slate-900/80 to-slate-900/60" />
+            </div>
+            <div className="relative text-center py-16 sm:py-20 md:py-24 px-4">
+              <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6">
+                About Swasth Sahayak
+              </h1>
+              <p className="text-xl md:text-2xl text-slate-200 max-w-3xl mx-auto leading-relaxed">
+                Your trusted companion in health and wellness, powered by advanced AI technology
+              </p>
+            </div>
           </div>
 
           {/* Divider */}
           <div className="border-t border-white/10"></div>
 
           {/* Mission & Vision */}
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 py-6">
-            <div className="glass-panel bg-gradient-to-br from-green-500/10 to-blue-500/10 border-green-400/30 p-8 hover:scale-[1.02] transition-transform">
-              <div className="flex items-center gap-3 mb-6">
-                <div className="p-3 bg-green-500/20 rounded-xl">
-                  <Heart className="w-8 h-8 text-green-400" />
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-8 py-6">
+            <div className="glass-panel bg-gradient-to-br from-green-500/10 to-blue-500/10 border-green-400/30 p-6 sm:p-8 hover:scale-[1.02] transition-transform">
+              <div className="flex items-center gap-3 mb-4 sm:mb-6">
+                <div className="p-2 sm:p-3 bg-green-500/20 rounded-xl">
+                  <Heart className="w-6 h-6 sm:w-8 sm:h-8 text-green-400" />
                 </div>
-                <h2 className="text-3xl font-bold text-white">Our Mission</h2>
+                <h2 className="text-2xl sm:text-3xl font-bold text-white">Our Mission</h2>
               </div>
-              <p className="text-slate-300 text-lg leading-relaxed">
+              <p className="text-slate-300 text-base sm:text-lg leading-relaxed">
                 Swasth Sahayak is dedicated to making quality health information accessible to everyone. 
                 We combine cutting-edge AI technology with reliable medical knowledge to provide personalized 
                 health guidance, diet planning, and wellness support. Our platform empowers individuals to 
@@ -61,14 +72,14 @@ const About = () => {
               </p>
             </div>
 
-            <div className="glass-panel bg-gradient-to-br from-blue-500/10 to-purple-500/10 border-blue-400/30 p-8 hover:scale-[1.02] transition-transform">
-              <div className="flex items-center gap-3 mb-6">
-                <div className="p-3 bg-blue-500/20 rounded-xl">
-                  <Target className="w-8 h-8 text-blue-400" />
+            <div className="glass-panel bg-gradient-to-br from-blue-500/10 to-purple-500/10 border-blue-400/30 p-6 sm:p-8 hover:scale-[1.02] transition-transform">
+              <div className="flex items-center gap-3 mb-4 sm:mb-6">
+                <div className="p-2 sm:p-3 bg-blue-500/20 rounded-xl">
+                  <Target className="w-6 h-6 sm:w-8 sm:h-8 text-blue-400" />
                 </div>
-                <h2 className="text-3xl font-bold text-white">Our Vision</h2>
+                <h2 className="text-2xl sm:text-3xl font-bold text-white">Our Vision</h2>
               </div>
-              <p className="text-slate-300 text-lg leading-relaxed">
+              <p className="text-slate-300 text-base sm:text-lg leading-relaxed">
                 A world where everyone has access to intelligent health guidance and support, 
                 enabling better health outcomes and improved quality of life through the power of
                 artificial intelligence and personalized care. We envision a future where technology
@@ -89,21 +100,21 @@ const About = () => {
               </p>
             </div>
 
-            <div className="grid md:grid-cols-2 gap-8">
+            <div className="grid sm:grid-cols-2 gap-6 sm:gap-8">
               {values.map((value, index) => (
                 <div 
                   key={index}
-                  className="glass-panel bg-slate-800/50 border-white/10 p-8 hover:border-green-400/30 transition-all hover:scale-[1.02] group"
+                  className="glass-panel bg-slate-800/50 border-white/10 p-6 sm:p-8 hover:border-green-400/30 transition-all hover:scale-[1.02] group"
                 >
-                  <div className="flex items-start gap-5">
-                    <div className="w-16 h-16 rounded-xl bg-gradient-to-br from-green-500 to-blue-500 flex items-center justify-center flex-shrink-0 group-hover:scale-110 transition-transform">
+                  <div className="flex items-start gap-4 sm:gap-5">
+                    <div className="w-12 h-12 sm:w-16 sm:h-16 rounded-xl bg-gradient-to-br from-green-500 to-blue-500 flex items-center justify-center flex-shrink-0 group-hover:scale-110 transition-transform">
                       {value.icon}
                     </div>
                     <div>
-                      <h3 className="text-2xl font-bold text-white mb-3">
+                      <h3 className="text-xl sm:text-2xl font-bold text-white mb-2 sm:mb-3">
                         {value.title}
                       </h3>
-                      <p className="text-slate-300 text-base leading-relaxed">
+                      <p className="text-slate-300 text-sm sm:text-base leading-relaxed">
                         {value.description}
                       </p>
                     </div>

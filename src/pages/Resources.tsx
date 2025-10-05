@@ -1,5 +1,6 @@
 import GlassNavbar from "@/components/GlassNavbar";
 import { ExternalLink, Download, BookOpen, Video, FileText, Heart } from "lucide-react";
+import resourcesHeader from "@/assets/resources-header.jpg";
 
 const Resources = () => {
   const resourceCategories = [
@@ -51,14 +52,24 @@ const Resources = () => {
       
       <main className="pt-28 pb-16 px-4 md:px-6 lg:px-8">
         <div className="max-w-7xl mx-auto space-y-8">
-          {/* Header */}
-          <div className="text-center py-8">
-            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6">
-              Health Resources
-            </h1>
-            <p className="text-xl md:text-2xl text-slate-300 max-w-3xl mx-auto leading-relaxed">
-              Comprehensive guides and resources to support your health journey
-            </p>
+          {/* Header with Image */}
+          <div className="relative rounded-2xl overflow-hidden">
+            <div className="absolute inset-0">
+              <img 
+                src={resourcesHeader} 
+                alt="Health Resources" 
+                className="w-full h-full object-cover"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-slate-900 via-slate-900/80 to-slate-900/60" />
+            </div>
+            <div className="relative text-center py-16 sm:py-20 md:py-24 px-4">
+              <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6">
+                Health Resources
+              </h1>
+              <p className="text-xl md:text-2xl text-slate-200 max-w-3xl mx-auto leading-relaxed">
+                Comprehensive guides and resources to support your health journey
+              </p>
+            </div>
           </div>
 
           {/* Divider */}
@@ -66,17 +77,17 @@ const Resources = () => {
 
           {/* Resource Categories */}
           <div className="py-6">
-            <div className="grid md:grid-cols-2 gap-8">
+            <div className="grid md:grid-cols-2 gap-6 sm:gap-8">
               {resourceCategories.map((category, index) => (
                 <div 
                   key={index}
-                  className="glass-panel bg-slate-800/50 border-white/10 p-8 hover:border-green-400/30 transition-all hover:scale-[1.02] group"
+                  className="glass-panel bg-slate-800/50 border-white/10 p-6 sm:p-8 hover:border-green-400/30 transition-all hover:scale-[1.02] group"
                 >
-                  <div className="flex items-center gap-4 mb-6">
-                    <div className={`w-16 h-16 rounded-xl bg-gradient-to-br ${category.color} flex items-center justify-center group-hover:scale-110 transition-transform`}>
+                  <div className="flex flex-col sm:flex-row items-start sm:items-center gap-3 sm:gap-4 mb-6">
+                    <div className={`w-14 h-14 sm:w-16 sm:h-16 rounded-xl bg-gradient-to-br ${category.color} flex items-center justify-center group-hover:scale-110 transition-transform`}>
                       {category.icon}
                     </div>
-                    <h2 className="text-3xl font-bold text-white">{category.title}</h2>
+                    <h2 className="text-2xl sm:text-3xl font-bold text-white">{category.title}</h2>
                   </div>
                   
                   <div className="space-y-3">

@@ -5,12 +5,23 @@ import GlassSurface from "./GlassSurface";
 import ClickSpark from "./ClickSpark";
 import BlurText from "./BlurText";
 import ScrollFloat from "./ScrollFloat";
+import heroImage from "@/assets/hero-health.jpg";
 
 const HeroSection = () => {
   return (
-    <section className="min-h-screen flex items-center justify-center px-4 pt-24 relative overflow-hidden">
-      {/* Liquid Ether Background */}
+    <section className="min-h-screen flex items-center justify-center px-4 sm:px-6 pt-24 pb-12 relative overflow-hidden">
+      {/* Background Image with Overlay */}
       <div className="absolute inset-0 z-0">
+        <img 
+          src={heroImage} 
+          alt="Health and Wellness" 
+          className="w-full h-full object-cover"
+        />
+        <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/50 to-black/60" />
+      </div>
+      
+      {/* Liquid Ether Background */}
+      <div className="absolute inset-0 z-0 opacity-30">
         <LiquidEther
           colors={['#134E5E', '#71B280']}
           mouseForce={25}
@@ -29,7 +40,7 @@ const HeroSection = () => {
           autoRampDuration={0.8}
         />
       </div>
-      <div className="text-center max-w-4xl mx-auto relative z-10">
+      <div className="text-center max-w-4xl mx-auto relative z-10 px-4">
         {/* Main Headline */}
         <div className="mb-8">
           <BlurText
@@ -53,7 +64,7 @@ const HeroSection = () => {
         </div>
 
         {/* Action Buttons */}
-        <div className="flex flex-col sm:flex-row gap-6 justify-center items-center mb-16">
+        <div className="flex flex-col sm:flex-row gap-4 sm:gap-6 justify-center items-center mb-12 sm:mb-16 px-4">
           <ClickSpark
             sparkColor="#ffffff"
             sparkSize={10}
@@ -63,7 +74,7 @@ const HeroSection = () => {
           >
             <Link
               to="/chatbot"
-              className="bg-black/20 backdrop-blur-sm text-white font-semibold px-8 py-4 rounded-2xl border border-white/20 hover:bg-black/30 hover:scale-105 transition-all duration-300 flex items-center space-x-2 group"
+              className="w-full sm:w-auto bg-black/20 backdrop-blur-sm text-white font-semibold px-6 sm:px-8 py-3 sm:py-4 rounded-2xl border border-white/20 hover:bg-black/30 hover:scale-105 transition-all duration-300 flex items-center justify-center space-x-2 group"
             >
               <MessageCircle size={20} />
               <span>Get Started</span>
@@ -80,7 +91,7 @@ const HeroSection = () => {
           >
             <Link
               to="/about"
-              className="bg-black/20 backdrop-blur-sm text-white font-semibold px-8 py-4 rounded-2xl border border-white/20 hover:bg-black/30 hover:scale-105 transition-all duration-300 flex items-center space-x-2"
+              className="w-full sm:w-auto bg-black/20 backdrop-blur-sm text-white font-semibold px-6 sm:px-8 py-3 sm:py-4 rounded-2xl border border-white/20 hover:bg-black/30 hover:scale-105 transition-all duration-300 flex items-center justify-center space-x-2"
             >
               <span>Learn More</span>
             </Link>

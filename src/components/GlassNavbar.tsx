@@ -3,6 +3,7 @@ import { Menu, X, LogIn, LayoutDashboard, User } from "lucide-react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import ClickSpark from "./ClickSpark";
+import BubbleMenu from "./BubbleMenu";
 import { supabase } from "@/integrations/supabase/client";
 import logo from '@/assets/logo-main.png';
 
@@ -34,9 +35,17 @@ const GlassNavbar = () => {
   ];
 
   return (
-    <nav className="bg-white/5 backdrop-blur-lg border-b border-white/10 fixed top-0 left-0 right-0 z-50 shadow-lg">
-      <div className="w-full px-4 md:px-6 lg:px-8">
-        <div className="flex items-center justify-between py-4 md:py-5">
+    <>
+      <BubbleMenu 
+        isAuthenticated={!!user} 
+        onLogout={() => supabase.auth.signOut()} 
+      />
+      
+      <nav className="bg-white/5 backdrop-blur-lg border-b border-white/10 fixed top-0 left-0 right-0 z-50 shadow-lg">
+        <div className="w-full px-4 md:px-6 lg:px-8">
+          <div className="flex items-center justify-between py-4 md:py-5">
+          
+          
           {/* Logo & Name */}
           <ClickSpark
             sparkColor="#71B280"
@@ -160,24 +169,26 @@ const GlassNavbar = () => {
             </div>
           </div>
 
-          {/* Mobile Menu Button */}
-          <div className="lg:hidden flex items-center space-x-1">
-            <ClickSpark
-              sparkColor="#71B280"
-              sparkSize={6}
-              sparkRadius={12}
-              sparkCount={4}
-              duration={300}
-            >
-              <Button 
-                variant="outline" 
-                size="sm" 
-                className="text-white border-white/30 hover:bg-white/10 hover:border-white/50 px-2"
-                onClick={() => user ? navigate('/dashboard') : navigate('/auth')}
+          {/* Mobile Quick Actions */}
+          <div className="lg:hidden flex items-center space-x-2">
+            {user && (
+              <ClickSpark
+                sparkColor="#71B280"
+                sparkSize={6}
+                sparkRadius={12}
+                sparkCount={4}
+                duration={300}
               >
-                <LayoutDashboard className="w-4 h-4" />
-              </Button>
-            </ClickSpark>
+                <Button 
+                  variant="outline" 
+                  size="sm" 
+                  className="text-white border-white/30 hover:bg-white/10 hover:border-white/50 px-3"
+                  onClick={() => navigate('/dashboard')}
+                >
+                  <LayoutDashboard className="w-4 h-4" />
+                </Button>
+              </ClickSpark>
+            )}
             
             {!user && (
               <ClickSpark
@@ -188,80 +199,17 @@ const GlassNavbar = () => {
                 duration={300}
               >
                 <Link to="/auth">
-                  <Button variant="outline" size="sm" className="text-white border-white/30 hover:bg-white/10 hover:border-white/50 px-2">
+                  <Button variant="outline" size="sm" className="text-white border-white/30 hover:bg-white/10 hover:border-white/50 px-3">
                     <LogIn className="w-4 h-4" />
                   </Button>
                 </Link>
               </ClickSpark>
             )}
-            
-            <ClickSpark
-              sparkColor="#71B280"
-              sparkSize={8}
-              sparkRadius={15}
-              sparkCount={6}
-              duration={400}
-            >
-              <button
-                className="text-white p-2 rounded-lg hover:bg-white/10"
-                onClick={() => setIsMenuOpen(!isMenuOpen)}
-              >
-                {isMenuOpen ? <X size={20} /> : <Menu size={20} />}
-              </button>
-            </ClickSpark>
+          </div>
           </div>
         </div>
-
-        {/* Mobile Menu */}
-        {isMenuOpen && (
-          <div className="lg:hidden mt-4 pt-4 border-t border-white/20 pb-4">
-            <div className="flex flex-col space-y-3">
-              {navLinks.map((link) => (
-                <ClickSpark
-                  key={link.name}
-                  sparkColor="#71B280"
-                  sparkSize={6}
-                  sparkRadius={12}
-                  sparkCount={5}
-                  duration={300}
-                >
-                  <Link
-                    to={link.path}
-                    className={`text-white/90 hover:text-white transition-colors duration-300 font-medium py-2 px-3 rounded-lg hover:bg-white/10 ${
-                      location.pathname === link.path ? "text-white bg-white/10" : ""
-                    }`}
-                    onClick={() => setIsMenuOpen(false)}
-                  >
-                    {link.name}
-                  </Link>
-                </ClickSpark>
-              ))}
-              
-              {user && (
-                <ClickSpark
-                  sparkColor="#71B280"
-                  sparkSize={6}
-                  sparkRadius={12}
-                  sparkCount={5}
-                  duration={300}
-                >
-                  <Button 
-                    variant="outline" 
-                    className="text-white border-white/30 hover:bg-white/10 hover:border-white/50 w-full justify-start"
-                    onClick={() => {
-                      supabase.auth.signOut();
-                      setIsMenuOpen(false);
-                    }}
-                  >
-                    Logout
-                  </Button>
-                </ClickSpark>
-              )}
-            </div>
-          </div>
-        )}
-      </div>
-    </nav>
+      </nav>
+    </>
   );
 };
 
