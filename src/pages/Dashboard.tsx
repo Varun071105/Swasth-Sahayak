@@ -189,9 +189,9 @@ const Dashboard = () => {
               <Button 
                 variant="outline" 
                 className="bg-white/10 text-white border-white/20 hover:bg-white/20 whitespace-nowrap"
-                onClick={() => console.log("Report analyzer feature coming soon")}
+                onClick={() => navigate("/report-analyzer")}
               >
-                Coming Soon
+                Check Now
               </Button>
             </ClickSpark>
           </div>
