@@ -8,3 +8,6 @@ verify_jwt = false
 
 [functions.vaccination-reminders]
 verify_jwt = false
+
+[functions.analyze-report]
+verify_jwt = false

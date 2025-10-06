@@ -57,7 +57,7 @@ const Dashboard = () => {
       description: "Upload and analyze your medical reports with AI assistance",
       icon: FileText,
       color: "from-purple-500 to-purple-600",
-      action: () => console.log("Report analyzer feature coming soon")
+      action: () => navigate("/report-analyzer")
     },
     {
       title: "Symptoms to Disease Analysis",
