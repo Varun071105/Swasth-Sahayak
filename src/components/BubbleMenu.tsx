@@ -62,17 +62,17 @@ const BubbleMenu = ({ isAuthenticated, onLogout }: BubbleMenuProps) => {
                     onClick={() => handleItemClick(item.path)}
                     className={`
                       flex items-center gap-3 px-4 py-3 rounded-full
-                      bg-white/10 backdrop-blur-lg border border-white/20
-                      hover:bg-white/20 transition-all duration-300
-                      animate-scale-in shadow-lg
-                      ${isActive ? 'bg-white/25 border-white/40' : ''}
+                      glass-panel border-primary/30
+                      hover:bg-primary/20 hover:border-primary/50 transition-all duration-300
+                      animate-scale-in
+                      ${isActive ? 'bg-primary/30 border-primary/60 shadow-lg shadow-primary/20' : ''}
                     `}
                     style={{
                       animationDelay: `${index * 50}ms`,
                     }}
                   >
-                    <Icon className="w-5 h-5 text-white" />
-                    <span className="text-white font-medium whitespace-nowrap">
+                    <Icon className="w-5 h-5 text-foreground" />
+                    <span className="text-foreground font-medium whitespace-nowrap">
                       {item.name}
                     </span>
                   </button>
@@ -96,21 +96,22 @@ const BubbleMenu = ({ isAuthenticated, onLogout }: BubbleMenuProps) => {
             onClick={() => setIsOpen(!isOpen)}
             className={`
               w-16 h-16 rounded-full
-              bg-gradient-to-r from-primary to-secondary
-              shadow-2xl shadow-primary/50
+              bg-gradient-to-br from-primary via-primary/90 to-secondary
+              shadow-2xl shadow-primary/40
               flex items-center justify-center
               transition-all duration-300
-              hover:scale-110 active:scale-95
+              hover:scale-110 hover:shadow-primary/60 active:scale-95
+              border border-primary/30
               ${isOpen ? 'rotate-45' : 'rotate-0'}
             `}
           >
             {isOpen ? (
-              <X className="w-7 h-7 text-white" />
+              <X className="w-7 h-7 text-primary-foreground" />
             ) : (
               <div className="relative">
-                <div className="w-6 h-0.5 bg-white rounded-full mb-1.5"></div>
-                <div className="w-6 h-0.5 bg-white rounded-full mb-1.5"></div>
-                <div className="w-6 h-0.5 bg-white rounded-full"></div>
+                <div className="w-6 h-0.5 bg-primary-foreground rounded-full mb-1.5"></div>
+                <div className="w-6 h-0.5 bg-primary-foreground rounded-full mb-1.5"></div>
+                <div className="w-6 h-0.5 bg-primary-foreground rounded-full"></div>
               </div>
             )}
           </button>
