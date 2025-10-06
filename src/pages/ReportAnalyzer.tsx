@@ -1,12 +1,13 @@
 import { useState, useRef } from "react";
 import { useNavigate } from "react-router-dom";
-import { ArrowLeft, Upload, Camera, FileText, AlertCircle, CheckCircle, Activity } from "lucide-react";
+import { ArrowLeft, Upload, Camera, FileText, AlertCircle, CheckCircle, Activity, Download } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { toast } from "sonner";
 import { supabase } from "@/integrations/supabase/client";
 import GlassNavbar from "@/components/GlassNavbar";
 import ClickSpark from "@/components/ClickSpark";
+import jsPDF from "jspdf";
 
 const ReportAnalyzer = () => {
   const navigate = useNavigate();
@@ -70,9 +71,12 @@ const ReportAnalyzer = () => {
     setAnalysis(null);
 
     try {
+      console.log('Starting analysis...');
       const { data, error } = await supabase.functions.invoke('analyze-report', {
         body: { imageData: selectedImage }
       });
+
+      console.log('Analysis response:', { data, error });
 
       if (error) {
         console.error('Analysis error:', error);
@@ -83,6 +87,11 @@ const ReportAnalyzer = () => {
         throw new Error(data.error);
       }
 
+      if (!data?.analysis) {
+        throw new Error('No analysis data received');
+      }
+
+      console.log('Analysis received:', data.analysis);
       setAnalysis(data.analysis);
       toast.success("Report analyzed successfully!");
     } catch (error: any) {
@@ -90,6 +99,125 @@ const ReportAnalyzer = () => {
       toast.error(error.message || "Failed to analyze report");
     } finally {
       setIsAnalyzing(false);
+    }
+  };
+
+  const downloadAsPDF = () => {
+    if (!analysis) return;
+    
+    try {
+      const doc = new jsPDF();
+      const sections = parseAnalysis(analysis);
+      let y = 20;
+      const lineHeight = 7;
+      const pageHeight = doc.internal.pageSize.height;
+      const margin = 20;
+
+      // Title
+      doc.setFontSize(16);
+      doc.setTextColor(0, 128, 128);
+      doc.text("Medical Report Analysis", margin, y);
+      y += lineHeight * 2;
+
+      // Helper function to add text with word wrapping
+      const addSection = (title: string, content: string) => {
+        if (!content) return;
+        
+        doc.setFontSize(12);
+        doc.setTextColor(0, 128, 128);
+        doc.text(title, margin, y);
+        y += lineHeight;
+        
+        doc.setFontSize(10);
+        doc.setTextColor(0, 0, 0);
+        const lines = doc.splitTextToSize(content, doc.internal.pageSize.width - margin * 2);
+        
+        lines.forEach((line: string) => {
+          if (y > pageHeight - margin) {
+            doc.addPage();
+            y = margin;
+          }
+          doc.text(line, margin, y);
+          y += lineHeight;
+        });
+        
+        y += lineHeight;
+      };
+
+      addSection("Summary", sections.summary);
+      addSection("Key Health Parameters", sections.parameters);
+      addSection("Detected Issues", sections.issues);
+      addSection("Health Risks", sections.risks);
+      addSection("Recommendations", sections.recommendations);
+
+      // Add disclaimer
+      if (y > pageHeight - margin * 3) {
+        doc.addPage();
+        y = margin;
+      }
+      doc.setFontSize(8);
+      doc.setTextColor(128, 128, 128);
+      const disclaimer = "This AI-powered analysis is for informational purposes only. Always consult healthcare professionals for medical advice.";
+      const disclaimerLines = doc.splitTextToSize(disclaimer, doc.internal.pageSize.width - margin * 2);
+      doc.text(disclaimerLines, margin, y);
+
+      doc.save("medical-report-analysis.pdf");
+      toast.success("PDF downloaded successfully!");
+    } catch (error) {
+      console.error('PDF generation error:', error);
+      toast.error("Failed to generate PDF");
+    }
+  };
+
+  const downloadAsText = () => {
+    if (!analysis) return;
+    
+    try {
+      const sections = parseAnalysis(analysis);
+      let textContent = "MEDICAL REPORT ANALYSIS\n";
+      textContent += "=".repeat(50) + "\n\n";
+      
+      if (sections.summary) {
+        textContent += "SUMMARY\n" + "-".repeat(50) + "\n";
+        textContent += sections.summary + "\n\n";
+      }
+      
+      if (sections.parameters) {
+        textContent += "KEY HEALTH PARAMETERS\n" + "-".repeat(50) + "\n";
+        textContent += sections.parameters + "\n\n";
+      }
+      
+      if (sections.issues) {
+        textContent += "DETECTED ISSUES\n" + "-".repeat(50) + "\n";
+        textContent += sections.issues + "\n\n";
+      }
+      
+      if (sections.risks) {
+        textContent += "HEALTH RISKS\n" + "-".repeat(50) + "\n";
+        textContent += sections.risks + "\n\n";
+      }
+      
+      if (sections.recommendations) {
+        textContent += "RECOMMENDATIONS\n" + "-".repeat(50) + "\n";
+        textContent += sections.recommendations + "\n\n";
+      }
+      
+      textContent += "=".repeat(50) + "\n";
+      textContent += "DISCLAIMER: This AI-powered analysis is for informational purposes only.\n";
+      textContent += "Always consult healthcare professionals for medical advice.\n";
+
+      const blob = new Blob([textContent], { type: 'text/plain' });
+      const url = URL.createObjectURL(blob);
+      const link = document.createElement('a');
+      link.href = url;
+      link.download = 'medical-report-analysis.txt';
+      link.click();
+      URL.revokeObjectURL(url);
+      
+      toast.success("Text file downloaded successfully!");
+    } catch (error) {
+      console.error('Text download error:', error);
+      toast.error("Failed to download text file");
     }
   };
 
@@ -241,12 +369,28 @@ const ReportAnalyzer = () => {
             </Card>
           </div>
 
-          {sections && (
+          {analysis && sections && (
             <Card className="glass-panel p-8">
-              <h2 className="text-2xl font-bold mb-6 flex items-center gap-2">
-                <Activity className="w-6 h-6 text-primary" />
-                Analysis Results
-              </h2>
+              <div className="flex items-center justify-between mb-6">
+                <h2 className="text-2xl font-bold flex items-center gap-2">
+                  <Activity className="w-6 h-6 text-primary" />
+                  Analysis Results
+                </h2>
+                <div className="flex gap-2">
+                  <ClickSpark>
+                    <Button onClick={downloadAsText} variant="outline" size="sm">
+                      <Download className="w-4 h-4 mr-2" />
+                      Download TXT
+                    </Button>
+                  </ClickSpark>
+                  <ClickSpark>
+                    <Button onClick={downloadAsPDF} size="sm">
+                      <Download className="w-4 h-4 mr-2" />
+                      Download PDF
+                    </Button>
+                  </ClickSpark>
+                </div>
+              </div>
 
               <div className="space-y-6">
                 {sections.summary && (
