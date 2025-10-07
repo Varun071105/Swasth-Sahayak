@@ -144,11 +144,17 @@ const ReportAnalyzer = () => {
         y += lineHeight;
       };
 
-      addSection("Summary", sections.summary);
-      addSection("Key Health Parameters", sections.parameters);
-      addSection("Detected Issues", sections.issues);
-      addSection("Health Risks", sections.risks);
-      addSection("Recommendations", sections.recommendations);
+      const hasAny = Boolean(sections.summary || sections.parameters || sections.issues || sections.risks || sections.recommendations);
+
+      if (!hasAny) {
+        addSection("Full Analysis", analysis);
+      } else {
+        addSection("Summary", sections.summary);
+        addSection("Key Health Parameters", sections.parameters);
+        addSection("Detected Issues", sections.issues);
+        addSection("Health Risks", sections.risks);
+        addSection("Recommendations", sections.recommendations);
+      }
 
       // Add disclaimer
       if (y > pageHeight - margin * 3) {
@@ -177,30 +183,34 @@ const ReportAnalyzer = () => {
       let textContent = "MEDICAL REPORT ANALYSIS\n";
       textContent += "=".repeat(50) + "\n\n";
       
-      if (sections.summary) {
-        textContent += "SUMMARY\n" + "-".repeat(50) + "\n";
-        textContent += sections.summary + "\n\n";
+      const hasAny = Boolean(sections.summary || sections.parameters || sections.issues || sections.risks || sections.recommendations);
+
+      if (!hasAny) {
+        textContent += "FULL ANALYSIS\n" + "-".repeat(50) + "\n";
+        textContent += analysis + "\n\n";
+      } else {
+        if (sections.summary) {
+          textContent += "SUMMARY\n" + "-".repeat(50) + "\n";
+          textContent += sections.summary + "\n\n";
+        }
+        if (sections.parameters) {
+          textContent += "KEY HEALTH PARAMETERS\n" + "-".repeat(50) + "\n";
+          textContent += sections.parameters + "\n\n";
+        }
+        if (sections.issues) {
+          textContent += "DETECTED ISSUES\n" + "-".repeat(50) + "\n";
+          textContent += sections.issues + "\n\n";
+        }
+        if (sections.risks) {
+          textContent += "HEALTH RISKS\n" + "-".repeat(50) + "\n";
+          textContent += sections.risks + "\n\n";
+        }
+        if (sections.recommendations) {
+          textContent += "RECOMMENDATIONS\n" + "-".repeat(50) + "\n";
+          textContent += sections.recommendations + "\n\n";
+        }
       }
-      
-      if (sections.parameters) {
-        textContent += "KEY HEALTH PARAMETERS\n" + "-".repeat(50) + "\n";
-        textContent += sections.parameters + "\n\n";
-      }
-      
-      if (sections.issues) {
-        textContent += "DETECTED ISSUES\n" + "-".repeat(50) + "\n";
-        textContent += sections.issues + "\n\n";
-      }
-      
-      if (sections.risks) {
-        textContent += "HEALTH RISKS\n" + "-".repeat(50) + "\n";
-        textContent += sections.risks + "\n\n";
-      }
-      
-      if (sections.recommendations) {
-        textContent += "RECOMMENDATIONS\n" + "-".repeat(50) + "\n";
-        textContent += sections.recommendations + "\n\n";
-      }
+
       
       textContent += "=".repeat(50) + "\n";
       textContent += "DISCLAIMER: This AI-powered analysis is for informational purposes only.\n";
@@ -230,17 +240,61 @@ const ReportAnalyzer = () => {
       recommendations: ''
     };
 
-    const summaryMatch = text.match(/\*\*Summary\*\*:?(.*?)(?=\*\*|$)/s);
-    const parametersMatch = text.match(/\*\*Key Health Parameters\*\*:?(.*?)(?=\*\*|$)/s);
-    const issuesMatch = text.match(/\*\*Detected Issues\*\*:?(.*?)(?=\*\*|$)/s);
-    const risksMatch = text.match(/\*\*Health Risks\*\*:?(.*?)(?=\*\*|$)/s);
-    const recommendationsMatch = text.match(/\*\*Recommendations\*\*:?(.*?)(?=\*\*|$)/s);
+    if (!text) return sections;
 
-    if (summaryMatch) sections.summary = summaryMatch[1].trim();
-    if (parametersMatch) sections.parameters = parametersMatch[1].trim();
-    if (issuesMatch) sections.issues = issuesMatch[1].trim();
-    if (risksMatch) sections.risks = risksMatch[1].trim();
-    if (recommendationsMatch) sections.recommendations = recommendationsMatch[1].trim();
+    // Normalize line endings
+    const normalized = text.replace(/\r\n?/g, '\n');
+
+    // Detect markdown-style headings like:
+    // - **Summary**
+    // - ### 1. Summary
+    // - 1. Summary
+    // - Summary
+    const headingRegex = /^(?:#+\s*|###\s*\d*\.?\s*|\d+\.\s*)?\s*(Summary|Key Health Parameters|Detected Issues|Health Risks|Recommendations)\s*(?:\*\*)?\s*:?\s*$/gim;
+
+    const matches: { key: keyof typeof sections; index: number; end: number }[] = [];
+    const keyMap: Record<string, keyof typeof sections> = {
+      'Summary': 'summary',
+      'Key Health Parameters': 'parameters',
+      'Detected Issues': 'issues',
+      'Health Risks': 'risks',
+      'Recommendations': 'recommendations',
+    };
+
+    for (const m of normalized.matchAll(headingRegex)) {
+      if (m.index == null) continue;
+      const raw = (m[1] || '').trim();
+      const key = keyMap[raw as keyof typeof keyMap];
+      if (key) {
+        matches.push({ key, index: m.index + m[0].length, end: m.index + m[0].length });
+      }
+    }
+
+    // If we didn't find headings, try legacy bold markers like **Summary**:
+    if (matches.length === 0) {
+      const legacy = [
+        { key: 'summary', re: /\*\*Summary\*\*:?(.*?)(?=\*\*(?:Key Health Parameters|Detected Issues|Health Risks|Recommendations)\*\*|$)/is },
+        { key: 'parameters', re: /\*\*Key Health Parameters\*\*:?(.*?)(?=\*\*(?:Detected Issues|Health Risks|Recommendations)\*\*|$)/is },
+        { key: 'issues', re: /\*\*Detected Issues\*\*:?(.*?)(?=\*\*(?:Health Risks|Recommendations)\*\*|$)/is },
+        { key: 'risks', re: /\*\*Health Risks\*\*:?(.*?)(?=\*\*Recommendations\*\*|$)/is },
+        { key: 'recommendations', re: /\*\*Recommendations\*\*:?(.*)$/is },
+      ] as const;
+
+      for (const { key, re } of legacy) {
+        const m = normalized.match(re);
+        if (m && m[1]) (sections as any)[key] = m[1].trim();
+      }
+      return sections;
+    }
+
+    // Sort matches by position and extract content between them
+    matches.sort((a, b) => a.index - b.index);
+    for (let i = 0; i < matches.length; i++) {
+      const current = matches[i];
+      const next = matches[i + 1];
+      const slice = normalized.slice(current.index, next ? next.index - (next.index - next.end) : undefined).trim();
+      sections[current.key] = slice;
+    }
 
     return sections;
   };
@@ -433,7 +487,15 @@ const ReportAnalyzer = () => {
                     <div className="text-muted-foreground whitespace-pre-line">{sections.recommendations}</div>
                   </div>
                 )}
+
+                {!sections.summary && !sections.parameters && !sections.issues && !sections.risks && !sections.recommendations && (
+                  <div>
+                    <h3 className="text-lg font-semibold mb-2 text-primary">Full Analysis</h3>
+                    <div className="text-muted-foreground whitespace-pre-wrap">{analysis}</div>
+                  </div>
+                )}
               </div>
+
 
               <div className="mt-6 p-4 bg-muted/50 rounded-lg border border-primary/20">
                 <p className="text-sm text-muted-foreground flex items-start gap-2">
