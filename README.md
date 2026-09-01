@@ -1,3 +1,4 @@
+🩺 Swasth Sahayak
 
 Swasth Sahayak is a smart health-assistant web application that helps users track symptoms, get health tips, find nearby doctors, and manage daily health reminders — all in one unified platform.
 
